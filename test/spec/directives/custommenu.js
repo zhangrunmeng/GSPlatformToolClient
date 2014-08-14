@@ -3,7 +3,7 @@
 describe('Directive: customMenu', function () {
 
   // load the directive's module
-  beforeEach(module('stringDetectorWebClientAngularApp'));
+  beforeEach(module('gsPlatformToolApp'));
 
   var element,
     scope;

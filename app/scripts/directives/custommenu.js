@@ -2,11 +2,11 @@
 
 /**
  * @ngdoc directive
- * @name stringDetectorWebClientAngularApp.directive:customMenu
+ * @name gsPlatformToolApp.directive:customMenu
  * @description
  * # customMenu
  */
-angular.module('stringDetectorWebClientAngularApp')
+angular.module('gsPlatformToolApp')
   .directive('customMenu', function () {
     return {
       template: '<div></div>',
