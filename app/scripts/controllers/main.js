@@ -7,7 +7,7 @@
  * # MainCtrl
  * Controller of the stringDetectorWebClientAngularApp
  */
-angular.module('stringDetectorWebClientAngularApp')
+angular.module('stringDetectorApp')
   .controller('MainCtrl', function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',

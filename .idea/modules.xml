@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/StringDetectorWebClient-Angular.iml" filepath="$PROJECT_DIR$/.idea/StringDetectorWebClient-Angular.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/GSPlatformTool.iml" filepath="$PROJECT_DIR$/.idea/GSPlatformTool.iml" />
     </modules>
   </component>
 </project>

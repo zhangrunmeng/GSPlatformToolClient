@@ -9,6 +9,6 @@
  * Main module of the application.
  */
 angular
-  .module('stringDetectorWebClientAngularApp', [
+  .module('stringDetectorApp', [
     'ngResource'
   ]);
