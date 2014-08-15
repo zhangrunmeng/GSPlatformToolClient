@@ -99,18 +99,18 @@ $(document).ready(function(){
         $('nav ul').jarvismenu({
             accordion : true,
             speed : $.menuSpeed,
-            closedSign : '<em class="fa fa-expand-o"></em>',
-            openedSign : '<em class="fa fa-collapse-o"></em>'
+            closedSign : '<em class="fa fa-plus-square-o"></em>',
+            openedSign : '<em class="fa fa-minus-square-o"></em>'
         });
     } else {
         alert("Error - menu anchor does not exist");
     }
 
-    // COLLAPSE LEFT NAV
+   /* // COLLAPSE LEFT NAV
     $('.minifyme').click(function(e) {
         $('body').toggleClass("minified");
         // $(this).effect("highlight", {}, 500);
         e.preventDefault();
-    });
+    });*/
 
 });

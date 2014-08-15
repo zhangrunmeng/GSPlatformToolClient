@@ -13,7 +13,8 @@
     "pace": "~0.5.6",
     "signalr": "~2.1.1",
     "angular-datatables": "~0.0.3",
-    "angular-bootstrap": "~0.11.0"
+    "angular-bootstrap": "~0.11.0",
+    "angular-animate": "~1.2.22"
   },
   "devDependencies": {
     "angular-mocks": "1.2.16",

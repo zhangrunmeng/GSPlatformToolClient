@@ -24,53 +24,11 @@
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
     <!-- endbuild -->
 </head>
-  <body ng-app="gsPlatformToolApp" class="minified smart-style-3">
+  <body ng-app="gsPlatformToolApp" class="minified smart-style">
       <!-- possible classes: minified, fixed-ribbon, fixed-header, fixed-width-->
       <!-- Left panel : Navigation area -->
-      <!-- Note: This width of the aside area can be adjusted through LESS variables -->
-      <aside id="left-panel">
-
-          <!-- NAVIGATION : This navigation is also responsive
-
-          To make this navigation dynamic please make sure to link the node
-          (the reference to the nav > ul) after page load. Or the navigation
-          will not initialize.
-          -->
-          <nav>
-              <!-- NOTE: Notice the gaps after each icon usage <i></i>..
-              Please note that these links work a bit different than
-              traditional hre="" links. See documentation for details.
-              -->
-              <ul>
-                  <li>
-                      <a href="javascript:void(0)" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">String Detector</span></a>
-                  </li>
-                  <li>
-                      <a href="#"><i class="fa fa-lg fa-fw fa-folder-open"></i> <span class="menu-item-parent">Download Binaries</span></a>
-                      <ul>
-                          <li>
-                              <a href="../GSPlatformTools/tool-StringDetector/string_detector.exe" target="_blank">Latest</a>
-                          </li>
-                          <li>
-                              <a href="../GSPlatformTools/tool-StringDetector/v1.17.0/string_detector.exe" target="_blank">v1.17</a>
-                          </li>
-                      </ul>
-                  </li>
-                  <li>
-                      <a href="#"><i class="fa fa-lg fa-fw fa-table"></i> <span class="menu-item-parent">Jobs</span></a>
-                      <ul>
-                          <li>
-                              <a href="#">Daemon Jobs</a>
-                          </li>
-                          <li>
-                              <a href="http://mindtouchgs.eng.citrite.net/Process/G11n_Development/I18n_Process/I18n_Tools_Introduction/I18n_Static_Code_Analysis_Tool/String_Detector" target="_blank">User Guide</a>
-                          </li>
-                      </ul>
-                  </li>
-              </ul>
-          </nav>
-          <span class="minifyme"> <i class="fa fa-arrow-circle-left hit"></i> </span>
-
+      <aside id="left-panel" >
+          <custom-menu> </custom-menu>
       </aside>
       <!-- END NAVIGATION -->
     <!-- Add your site or application content here -->
@@ -107,7 +65,9 @@
     <script src="bower_components/datatables-colreorder/js/dataTables.colReorder.js"></script>
     <script src="bower_components/datatables-tabletools/js/dataTables.tableTools.js"></script>
     <script src="bower_components/angular-datatables/dist/angular-datatables.js"></script>
+    <script src="bower_components/angular-datatables/dist/angular-datatables.min.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -120,7 +80,7 @@
     <script src="http://vhwebdevserver.eng.citrite.net/signalr/hubs"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/main.js"></script>
-    <script src="scripts/directives/custommenu.js"></script>
+    <script src="scripts/directives/custom_menu.js"></script>
     <!-- endbuild -->
 </body>
 </html>
