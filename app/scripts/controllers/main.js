@@ -9,9 +9,33 @@
  */
 angular.module('gsPlatformToolApp')
   .controller('MainCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+
+
+
+    console.log($scope);
   });
+
+
+
+
+angular.module('gsPlatformToolApp')
+.factory('utils',function(){
+        // job status
+        var running="Running";
+        var created="Created";
+        var completed="Completed";
+        // jenkins ballcolor  map
+        var buildStatusMap ={"Failed":completed,
+            "InProgress":running,
+            "Unstable":completed,
+            "Success":completed,
+            "Pending":completed,
+            "Disabled":completed,
+            "Aborted":completed,
+            "NotBuilt":created
+        };
+
+        return {
+            BuildStatusMap : buildStatusMap
+        };
+    });

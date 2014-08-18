@@ -24,20 +24,19 @@
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
     <!-- endbuild -->
 </head>
-  <body ng-app="gsPlatformToolApp" class="minified smart-style">
+  <body ng-app="gsPlatformToolApp" class="minified smart-style-3">
       <!-- possible classes: minified, fixed-ribbon, fixed-header, fixed-width-->
       <!-- Left panel : Navigation area -->
       <aside id="left-panel" >
           <custom-menu> </custom-menu>
       </aside>
       <!-- END NAVIGATION -->
-    <!-- Add your site or application content here -->
-    <div class="container">
-
-      <div ng-include="'views/main.html'" ng-controller="MainCtrl"></div>
-
-
-    </div>
+      <!-- MAIN PANEL -->
+      <div id="main" role="main" ng-controller="MainCtrl">
+        <!--<div ng-include="'views/main.html'" ng-controller="MainCtrl"></div>-->
+        <main-panel ></main-panel>
+      </div>
+      <!-- END MAIN PANEL -->
 
 
     <!--[if lt IE 7]>
@@ -65,7 +64,6 @@
     <script src="bower_components/datatables-colreorder/js/dataTables.colReorder.js"></script>
     <script src="bower_components/datatables-tabletools/js/dataTables.tableTools.js"></script>
     <script src="bower_components/angular-datatables/dist/angular-datatables.js"></script>
-    <script src="bower_components/angular-datatables/dist/angular-datatables.min.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <!-- endbower -->
@@ -73,14 +71,12 @@
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/custom/datatables_bootstrap.js"></script>
-    <script src="scripts/custom/jobDetailElementPrefix.js"></script>
-    <script src="scripts/custom/buildDetailElementPrefix.js"></script>
-      <!--<script src="scripts/custom/test.js"></script>-->
      <!--Reference the auto generated SignalR hub script. -->
     <script src="http://vhwebdevserver.eng.citrite.net/signalr/hubs"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/directives/custom_menu.js"></script>
+    <script src="scripts/directives/main_panel.js"></script>
     <!-- endbuild -->
 </body>
 </html>

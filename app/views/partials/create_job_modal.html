@@ -1,0 +1,48 @@
+<div class="modal  fade" id="createJobModal" tabindex="-1" role="dialog" aria-labelledby="createJobModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header btn-primary" id="job-modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title " id="createJobModalLabel">New Job</h4>
+            </div>
+            <div class="modal-body  no-padding" >
+                <form id="createJobForm" name="jobInfoForm"  method="post" class="well form-horizontal no-padding  no-margin custom-form-3" >
+                    <fieldset>
+                        <legend class="custom-legend">Job Basic Settings</legend>
+                        <div class="form-group custom-group">
+                            <label class="control-label col-lg-3 custom-label" for="jobName">Job Name </label>
+                            <div class="col-lg-8">
+                                <input class="form-control"  id="jobName"
+                                       name="jobName" type="text" value=""spellcheck="false"/>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group custom-group">
+                            <label class="control-label col-lg-3 custom-label" for="upstreamProject">Upstream Project </label>
+                            <div class="col-lg-8">
+                                <select class="form-control"id="upstreamProject" name="upstreamProject" class="form-control">
+                                </select>
+                                <!-- <input class="form-control" id="upstreamProject"  name="upstreamProject" type="text" value=""spellcheck="false"/>-->
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+
+            <div class="panel-footer  position-relative"   >
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!-- <a class="btn btn-warning " title="Prev Build"  id=""><i class="fa fa-chevron-left"></i> </a>-->
+                    </div><!-- /.col-sm-6 -->
+                    <div class="col-sm-6 text-right">
+                        <a class="btn btn-danger"  id="createJobCancel"><i class="fa fa-mail-reply"></i> Return</a>
+                        <a class="btn btn-success"  id="createJobSubmit"><i class="fa fa-check"></i> OK</a>
+                        <input class="hide" type="submit" id="jobFormSubmit">
+                    </div><!-- /.col-sm-6 -->
+                </div><!-- /.row -->
+            </div>  <!--/.panel-footer-->
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
