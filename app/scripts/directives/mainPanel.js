@@ -14,7 +14,6 @@ angular.module('gsPlatformToolApp')
       /*controller:'MainCtrl',*/
       link: function postLink(scope, element, attrs) {
 
-          console.log(scope);
       }
     };
   });

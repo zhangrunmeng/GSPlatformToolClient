@@ -44,11 +44,21 @@ angular.module('gsPlatformToolApp')
             openedSign : '[-]'
         };
 
+        // page group
+        var pageGroup='#page-group';
+        var dtJob='#dt_job';
+        var dtJobInfo ='#dt_job_info';
+        var dtJobPaginate ='#dt_job_paginate';
+
 
         return {
             BuildStatusMap : buildStatusMap,
             ValidationJob  : validationJobName,
             ToolName : toolName,
-            MenuOption : menuOption
+            MenuOption : menuOption,
+            pageGroup: pageGroup,
+            dtJob : dtJob,
+            dtJobInfo : dtJobInfo,
+            dtJobPaginate : dtJobPaginate
         };
     });

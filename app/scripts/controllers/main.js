@@ -9,24 +9,21 @@
  */
 angular.module('gsPlatformToolApp')
   .controller('MainCtrl', function ($scope,Restangular,DTOptionsBuilder,DTColumnDefBuilder,Utility) {
-
     $scope.loadToolJobs = function(){
         Restangular.all('tools').one(Utility.ToolName).get({fields:'toolname,viewname,jobs(jobname,status)'}).then(function (toolData){
+
             toolData.Jobs.forEach(function(job){
                 job.Result = Utility.BuildStatusMap[job.Status.Status];
             });
             $scope.jobs = toolData.Jobs.filter(function(job){
                 return job.JobName!= Utility.ValidationJob;
             });
-            console.log('job loaded');
+
+
         });
     };
 
-    $scope.jobs = [
-        {"JobName": "Product-d-d-d-faketool", "Status": {"JobName": "Product-d-d-d-faketool", "Status": "NotBuilt"}},
-        {"JobName": "Product-version-component-testtag-faketool", "Status": {"JobName": "Product-version-component-testtag-faketool", "Status": "Success"}}
-    ];
-    $scope.dtOptions  = {
+    $scope.dtJobOptions  = {
         sPaginationType : "bootstrap_two_button",
         sDom:'tip',
         iDisplayLength:15,
@@ -34,9 +31,16 @@ angular.module('gsPlatformToolApp')
         oLanguage:{
             sInfo:'Showing _START_ to _END_ of total _TOTAL_ Jobs',
             sInfoFiltered: ""
+        },
+        fnDrawCallback: function (oSettings) {
+            // have no other way to  manipulate dom  in the custom directive .
+            $(Utility.dtJobInfo).appendTo($(Utility.pageGroup));
+            $(Utility.dtJobInfo).addClass("pull-right margin-right margin-top");
+            $(Utility.dtJobPaginate).prependTo($(Utility.pageGroup))
         }
 
     };
+
     $scope.dtJobColumnDefs = [
         {
         "aTargets" : [0],
@@ -50,6 +54,10 @@ angular.module('gsPlatformToolApp')
         "bVisible": false
         }];
 
+    $scope.$on('event:dataTableLoaded', function(event, loadedDT) {
+        $scope.jobTable = loadedDT;
+        console.log('job loaded');
+    });
 
     // trigger datatables filter;
     $scope.oTableFilter = function(topJobFilter){
@@ -58,9 +66,24 @@ angular.module('gsPlatformToolApp')
 
     // category update
     $scope.categoryAllClick = function(){
+
+       // var jobs = $scope.jobs;
+       /* if($scope.init){
+            $scope.init=false;
+
+            $scope.jobs.pop();
+        }
+        else {
+            $scope.init =true;
+        }*/
+
+       // $scope.init=true;
+       // $scope.init=true;
+        //$scope.dtOptions.reloadData();
         console.log('category all');
     };
     $scope.categoryCreatedClick = function(){
+        $scope.init=true;
         console.log('category created');
     };
     $scope.categoryRunningClick = function(){
@@ -85,7 +108,7 @@ angular.module('gsPlatformToolApp')
     $scope.batchJobDeleteClick = function() {
         console.log('top job delete click');
     };
-    //$scope.loadToolJobs();
+    $scope.loadToolJobs();
     console.log($scope);
   });
 
