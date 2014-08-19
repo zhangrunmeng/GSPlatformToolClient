@@ -7,7 +7,7 @@
  * # customMenu
  */
 angular.module('gsPlatformToolApp')
-  .directive('customMenu', ['menuOptions',function (menuOptions) {
+  .directive('customMenu',function (Utility) {
     return {
       templateUrl: 'views/partials/custom_menu.html',
       restrict: 'E',
@@ -18,13 +18,14 @@ angular.module('gsPlatformToolApp')
           scope.minifyToggle = function(){
               angular.element('body').toggleClass("minified");
           };
+
           var options ={
               accordion : false,
               speed : 235,
               closedSign : '<em class="fa fa-plus-square-o"></em>',
               openedSign : '<em class="fa fa-minus-square-o"></em>'
           };
-          scope.options = options= angular.extend(menuOptions,options);
+          scope.options = options= angular.extend(Utility.MenuOption,options);
           //add a mark [+] to a multilevel menu
           element.find("li").each(function() {
               if ($(this).find("ul").size() != 0) {
@@ -88,15 +89,8 @@ angular.module('gsPlatformToolApp')
                   } // end else
               } // end if
           });
-
           console.log(scope);
       }
     };
-  }]);
+  });
 
-angular.module('gsPlatformToolApp').value('menuOptions',{
-    accordion : 'true',
-    speed : 200,
-    closedSign : '[+]',
-    openedSign : '[-]'
-});

@@ -60,7 +60,27 @@
                             </thead>
                             <tbody>
                                 <tr dt-rows="" ng-repeat="job in jobs">
-
+                                    <td><div class="checkbox "><label><input type="checkbox" class="checkbox style-2" data-name="{{job.JobName}}"><span></span> </label></div></td>
+                                    <td>{{ job.JobName }}</td>
+                                    <td>{{ job.Status.Status }}</td>
+                                    <!--<td>{{ job.Result }}</td>-->
+                                    <td>{{ job.Status.Status }}</td>
+                                    <td>
+                                    <div class="btn-group action" data-toggle="buttons">
+                                        <label title="Start Job" class="btn btn-default btn-xs action " ng-click="jobStartClick(job.JobName)">
+                                            <input type="radio" name="style-a1" id="style-a1">
+                                            <i class="fa fa-play action"></i>
+                                        </label>
+                                        <label title="Stop Job" class="btn btn-default btn-xs action active" ng-click="jobStopClick(job.JobName)">
+                                            <input type="radio" name="style-a2" id="style-a2">
+                                            <i class="fa fa-stop action"></i>
+                                        </label>
+                                        <label title="Delete Job" class="btn btn-default btn-xs action " ng-click="jobDeleteClick(job.JobName)">
+                                            <input type="radio" name="style-a2" id="style-a3">
+                                            <i class="fa fa-trash-o action"></i>
+                                        </label>
+                                    </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
