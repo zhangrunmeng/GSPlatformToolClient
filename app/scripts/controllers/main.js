@@ -56,41 +56,32 @@ angular.module('gsPlatformToolApp')
 
     $scope.$on('event:dataTableLoaded', function(event, loadedDT) {
         $scope.jobTable = loadedDT;
+
         console.log('job loaded');
     });
 
     // trigger datatables filter;
     $scope.oTableFilter = function(topJobFilter){
-        console.log(topJobFilter);
+        $scope.jobTable.tableObject.fnFilter(topJobFilter);
     };
 
     // category update
     $scope.categoryAllClick = function(){
-
-       // var jobs = $scope.jobs;
-       /* if($scope.init){
-            $scope.init=false;
-
-            $scope.jobs.pop();
-        }
-        else {
-            $scope.init =true;
-        }*/
-
-       // $scope.init=true;
-       // $scope.init=true;
-        //$scope.dtOptions.reloadData();
-        console.log('category all');
+        // clear the filter on the third column
+        $scope.jobTable.tableObject.fnFilter('',3);
+        $scope.jobTable.tableObject.fnFilter('');
     };
     $scope.categoryCreatedClick = function(){
-        $scope.init=true;
-        console.log('category created');
+        $scope.jobTable.tableObject.fnFilter('',3,true);
+        $scope.jobTable.tableObject.fnFilter(Utility.created, 3,true);
     };
     $scope.categoryRunningClick = function(){
-        console.log('category running');
+        $scope.jobTable.tableObject.fnFilter('',3,true);
+        $scope.jobTable.tableObject.fnFilter(Utility.running, 3,true);
     };
     $scope.categoryCompleteClick = function(){
-        console.log('category complete');
+        $scope.jobTable.tableObject.fnFilter('',3,true);
+        $scope.jobTable.tableObject.fnFilter(Utility.completed, 3,true);
     };
 
     // create job click

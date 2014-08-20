@@ -52,6 +52,7 @@ angular.module('gsPlatformToolApp')
 
 
         return {
+
             BuildStatusMap : buildStatusMap,
             ValidationJob  : validationJobName,
             ToolName : toolName,
@@ -59,6 +60,9 @@ angular.module('gsPlatformToolApp')
             pageGroup: pageGroup,
             dtJob : dtJob,
             dtJobInfo : dtJobInfo,
-            dtJobPaginate : dtJobPaginate
+            dtJobPaginate : dtJobPaginate,
+            created: created,
+            running:running,
+            completed:completed
         };
     });
