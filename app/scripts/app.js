@@ -10,7 +10,7 @@
  */
 angular
   .module('gsPlatformToolApp', [
-    'restangular','datatables'
+    'restangular','ngTable'
   ]).constant('serviceUrl','http://vhwebdevserver.eng.citrite.net')
     .config(function(RestangularProvider,serviceUrl){
         RestangularProvider.setBaseUrl(serviceUrl+'/api/');
