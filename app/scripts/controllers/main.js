@@ -9,7 +9,47 @@
  */
 angular.module('gsPlatformToolApp')
   .controller('MainCtrl', function ($scope,Restangular,DTOptionsBuilder,DTColumnDefBuilder,Utility) {
-    $scope.loadToolJobs = function(){
+    
+    // all kinds of category jobs count
+    $scope.category ={
+        'totalJobsNum':0,
+        'createdJobsNum':0,
+        'runningJobsNum':0,
+        'completedJobsNum':0
+        };
+    $scope.selectedCategory= Utility.defaultCategory;
+    var updateCategory = function (){
+        // category item numbers
+        var totalJobsNum=0;
+        var createdJobsNum=0;
+        var runningJobsNum=0;
+        var completedJobsNum=0;
+        var jobs=$scope.jobs;
+        if(jobs){
+            //compute the all categories jobs num
+            totalJobsNum=jobs.length;
+            $.each(jobs,function(i,job){
+                switch (job.Result){
+                    case Utility.created:
+                        createdJobsNum++;
+                        break;
+                    case Utility.running:
+                        runningJobsNum++;
+                        break;
+                    case Utility.completed :
+                        completedJobsNum++;
+                        break;
+                }
+            });
+        }
+        $scope.category.totalJobsNum= totalJobsNum;
+        $scope.category.createdJobsNum = createdJobsNum;
+        $scope.category.runningJobsNum = runningJobsNum;
+        $scope.category.completedJobsNum = completedJobsNum;
+    }
+       
+        
+    var loadToolJobs = function(){
         Restangular.all('tools').one(Utility.ToolName).get({fields:'toolname,viewname,jobs(jobname,status)'}).then(function (toolData){
 
             toolData.Jobs.forEach(function(job){
@@ -18,11 +58,13 @@ angular.module('gsPlatformToolApp')
             $scope.jobs = toolData.Jobs.filter(function(job){
                 return job.JobName!= Utility.ValidationJob;
             });
-
+            updateCategory();
 
         });
     };
 
+
+    // job datatable option
     $scope.dtJobOptions  = {
         sPaginationType : "bootstrap_two_button",
         sDom:'tip',
@@ -61,28 +103,33 @@ angular.module('gsPlatformToolApp')
     });
 
     // trigger datatables filter;
-    $scope.oTableFilter = function(topJobFilter){
+    $scope.jobTableFilter = function(topJobFilter){
         $scope.jobTable.tableObject.fnFilter(topJobFilter);
     };
 
     // category update
-    $scope.categoryAllClick = function(){
-        // clear the filter on the third column
-        $scope.jobTable.tableObject.fnFilter('',3);
-        $scope.jobTable.tableObject.fnFilter('');
+    $scope.switchCategory = function(category){
+        $scope.selectedCategory = category;
+        switch (category){
+            case Utility.all:
+                $scope.jobTable.tableObject.fnFilter('',3);
+                $scope.jobTable.tableObject.fnFilter('');
+                break;
+            case Utility.created:
+                $scope.jobTable.tableObject.fnFilter('',3,true);
+                $scope.jobTable.tableObject.fnFilter(Utility.created, 3,true);
+                break;
+            case Utility.running:
+                $scope.jobTable.tableObject.fnFilter('',3,true);
+                $scope.jobTable.tableObject.fnFilter(Utility.running, 3,true);
+                break;
+            case Utility.completed:
+                $scope.jobTable.tableObject.fnFilter('',3,true);
+                $scope.jobTable.tableObject.fnFilter(Utility.completed, 3,true);
+                break;
+        }
     };
-    $scope.categoryCreatedClick = function(){
-        $scope.jobTable.tableObject.fnFilter('',3,true);
-        $scope.jobTable.tableObject.fnFilter(Utility.created, 3,true);
-    };
-    $scope.categoryRunningClick = function(){
-        $scope.jobTable.tableObject.fnFilter('',3,true);
-        $scope.jobTable.tableObject.fnFilter(Utility.running, 3,true);
-    };
-    $scope.categoryCompleteClick = function(){
-        $scope.jobTable.tableObject.fnFilter('',3,true);
-        $scope.jobTable.tableObject.fnFilter(Utility.completed, 3,true);
-    };
+
 
     // create job click
     $scope.createJobClick = function(){
@@ -99,7 +146,7 @@ angular.module('gsPlatformToolApp')
     $scope.batchJobDeleteClick = function() {
         console.log('top job delete click');
     };
-    $scope.loadToolJobs();
+    loadToolJobs();
     console.log($scope);
   });
 
