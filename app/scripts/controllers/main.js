@@ -18,6 +18,7 @@ angular.module('gsPlatformToolApp')
         'completedJobsNum':0
         };
     $scope.selectedCategory= Utility.defaultCategory;
+    $scope.jobSelection=[];
     var updateCategory = function (){
         // category item numbers
         var totalJobsNum=0;
@@ -130,6 +131,9 @@ angular.module('gsPlatformToolApp')
         }
     };
 
+    $scope.test=function(){
+            $scope.jobTable.tableObject.fnDeleteRow(1);
+        };
 
     // create job click
     $scope.createJobClick = function(){
@@ -137,15 +141,38 @@ angular.module('gsPlatformToolApp')
     };
 
     // top job tool bar
-    $scope.batchJobStartClick = function(){
+    $scope.toggleJobSelection=function(elementId){
+        var index = $scope.jobSelection.indexOf(elementId);
+        // is currently selected
+        if (index > -1) {
+            $scope.jobSelection.splice(index, 1);
+        }
+        // is newly selected
+        else {
+            $scope.jobSelection.push(elementId);
+        }
+        console.log($scope.jobSelection);
+    };
+    $scope.batchJobStart = function(){
         console.log('top job start click');
     };
-    $scope.batchJobStopClick = function(){
+    $scope.batchJobStop = function(){
         console.log('top job stop click');
     };
-    $scope.batchJobDeleteClick = function() {
+    $scope.batchJobDelete = function() {
         console.log('top job delete click');
     };
+
+    // row job tool bar
+     $scope.jobStart =function(index,jobName){
+         console.log('start '+index);
+     }
+     $scope.jobStop = function(index,jobName){
+         console.log('stop '+index);
+     }
+     $scope.jobDelete = function(index,jobName){
+         console.log('delete '+index);
+     }
     loadToolJobs();
     console.log($scope);
   });

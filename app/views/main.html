@@ -20,9 +20,9 @@
                         <a href="javascript:void(0)"  title="Create New Job" class="btn btn-danger"  ng-click="createJobClick()" ><i class="fa fa-pencil"></i> New job</a>
                     </div>
                     <div class="btn-group" id = "action_top_toolbar">
-                        <button data-toggle="tooltip" title="Start Checked Jobs" type="button" class="btn btn-success" data-original-title="Start"  ng-click="batchJobStartClick()"><i class="fa fa-play"></i></button>
-                        <button data-toggle="tooltip" title="Stop Checked Jobs" type="button" class="btn btn-success" data-original-title="Stop"   ng-click="batchJobStopClick()"><i class="fa fa-stop"></i></button>
-                        <button data-toggle="tooltip" title="Delete Checked Jobs" type="button" class="btn btn-success" data-original-title="Delete" ng-click="batchJobDeleteClick()"><i class="fa fa-trash-o"></i></button>
+                        <button data-toggle="tooltip" title="Start Checked Jobs" type="button" class="btn btn-success" data-original-title="Start"  ng-click="batchJobStart()"><i class="fa fa-play"></i></button>
+                        <button data-toggle="tooltip" title="Stop Checked Jobs" type="button" class="btn btn-success" data-original-title="Stop"   ng-click="batchJobStop()"><i class="fa fa-stop"></i></button>
+                        <button data-toggle="tooltip" title="Delete Checked Jobs" type="button" class="btn btn-success" data-original-title="Delete" ng-click="batchJobDelete()"><i class="fa fa-trash-o"></i></button>
 
                     </div>
 
@@ -45,6 +45,8 @@
                             <a href="javascript:void(0)" class="list-group-item" ng-class="{active: 'Created' == selectedCategory}"  ng-click="switchCategory('Created')">Created <span class="badge badge-info">{{category.createdJobsNum}}</span> </a>
                             <a href="javascript:void(0)" class="list-group-item" ng-class="{active: 'Running'== selectedCategory}"  ng-click="switchCategory('Running')">Running <span class="badge badge-warning">{{category.runningJobsNum}}</span></a>
                             <a href="javascript:void(0)" class="list-group-item" ng-class="{active: 'Completed'== selectedCategory}"  ng-click="switchCategory('Completed')">Completed <span class="badge badge-success">{{category.completedJobsNum}}</span></a>
+                            <a href="javascript:void(0)" class="list-group-item"   ng-click="test()">test <span class="badge badge-success">{{category.completedJobsNum}}</span></a>
+
                         </div>
                     </div><!-- /.col-sm-4 col-md-3 -->
                     <div class="col-sm-5 col-md-5">
@@ -61,22 +63,22 @@
                             </thead>
                             <tbody>
                                 <tr dt-rows="" ng-repeat="job in jobs">
-                                    <td><div class="checkbox "><label><input type="checkbox" class="checkbox style-2" data-name="{{job.JobName}}"><span></span> </label></div></td>
+                                    <td><div class="checkbox "><label><input type="checkbox" ng-checked="jobSelection.indexOf($index) > -1"  ng-click="toggleJobSelection($index)" class="checkbox style-2" data-name="{{$index}}"><span></span> </label></div></td>
                                     <td>{{ job.JobName }}</td>
                                     <td>{{ job.Status.Status }}</td>
                                     <td>{{ job.Result }}</td>
                                     <!--<td>{{ job.Status.Status }}</td>-->
                                     <td>
                                     <div class="btn-group action" data-toggle="buttons">
-                                        <label title="Start Job" class="btn btn-default btn-xs action"ng-class="{active:job.Result=='Running'}" ng-click="jobStartClick(job.JobName)">
+                                        <label title="Start Job" class="btn btn-default btn-xs action"ng-class="{active:job.Result=='Running'}" ng-click="jobStart($index,job.JobName)">
                                             <input type="radio" name="style-a1" id="style-a1">
                                             <i class="fa fa-play action"></i>
                                         </label>
-                                        <label title="Stop Job" class="btn btn-default btn-xs action" ng-class="{active:job.Result=='Created'||job.Result=='Completed'}"  ng-click="jobStopClick(job.JobName)">
+                                        <label title="Stop Job" class="btn btn-default btn-xs action" ng-class="{active:job.Result=='Created'||job.Result=='Completed'}"  ng-click="jobStop($index,job.JobName)">
                                             <input type="radio" name="style-a2" id="style-a2">
                                             <i class="fa fa-stop action"></i>
                                         </label>
-                                        <label title="Delete Job" class="btn btn-default btn-xs action" ng-click="jobDeleteClick(job.JobName)">
+                                        <label title="Delete Job" class="btn btn-default btn-xs action" ng-click="jobDelete($index,job.JobName)">
                                             <input type="radio" name="style-a2" id="style-a3">
                                             <i class="fa fa-trash-o action"></i>
                                         </label>
