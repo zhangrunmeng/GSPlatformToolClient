@@ -9,9 +9,13 @@
  */
 angular.module('gsPlatformToolApp')
   .controller('MainCtrl', function ($scope,$filter,Restangular,ngTableParams,Utility) {
-    var data;
+
 
     // init scope jobs data
+    $scope.jobFilter='';
+    /*var getFilter = function (){
+            var filter = $scope.
+        }*/
     $scope.loadJobsData = function(){
         Restangular.all('tools').one(Utility.ToolName).get({fields:'toolname,viewname,jobs(jobname,status)'})
             .then(function (toolData){
@@ -27,28 +31,30 @@ angular.module('gsPlatformToolApp')
                 console.log(err);
             }).then(function(){
                 // ng-table jobs table
+                console.log('transfer params');
                 $scope.jobTableParams = new ngTableParams(
                     {
                         page:1, // first page number
-                        count:10, // count per page
+                        count:15, // count per page
                         sorting: {            // initial sorting
                         }
                     },
-                    {
+                    {   $scope:$scope,
+                        showDefaultPagination:false,
+                        counts: [], // hide the page size
                         total: $scope.jobs.length ,
                         getData: function($defer , params){
-                            //$defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-                            $defer.resolve($scope.jobs.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                            var filteredData = $filter('filter')($scope.jobs,$scope.jobFilter);
+                            var orderedData = params.sorting() ?
+                                $filter('orderBy')(filteredData, params.orderBy()) :
+                                filteredData;
+                            $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
                         }
                     }
                 );
             });
 
     };
-
-
-
-
 
 
     // trigger datatables filter;

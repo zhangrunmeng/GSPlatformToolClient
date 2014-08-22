@@ -9,7 +9,12 @@
  * - BODY
  * - CUSTOM STYLES
  */
-/**-------------------------------------------CUSTOM STYLE-------------------------------------------**/
+/**-------------------------------------------CUSTOM STYLE For NoTable-------------------------------------------**/
+.ng-table th.sortable.sort-desc,
+.ng-table th.sortable.sort-asc{
+    background-color: inherit;
+}
+/**-------------------------------------------CUSTOM STYLE For SmartAdmin-------------------------------------------**/
 
 .table-noborder tr td {
     border-top-style: dashed!important;
