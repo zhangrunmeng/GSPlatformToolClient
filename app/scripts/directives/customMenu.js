@@ -89,7 +89,6 @@ angular.module('gsPlatformToolApp')
                   } // end else
               } // end if
           });
-          console.log(scope);
       }
     };
   });

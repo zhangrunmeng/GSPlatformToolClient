@@ -9,10 +9,19 @@
  * - BODY
  * - CUSTOM STYLES
  */
+
+/**-------------------------------------------CUSTOM STYLE For this page-------------------------------------------**/
+.dataTables_wrapper.form-inline .checkbox input[type="checkbox"].checkbox ,
+.dataTables_wrapper.form-inline .radiobox input[type="radio"].radiobox  {
+    position: absolute;
+}
 /**-------------------------------------------CUSTOM STYLE For NoTable-------------------------------------------**/
 .ng-table th.sortable.sort-desc,
 .ng-table th.sortable.sort-asc{
     background-color: inherit;
+}
+.ng-table th {
+    text-align: left;
 }
 /**-------------------------------------------CUSTOM STYLE For SmartAdmin-------------------------------------------**/
 

@@ -27,7 +27,7 @@ angular.module('gsPlatformToolApp')
         }
     });
 
-    var loadJobsData = function(){
+    $scope.loadJobsData = function(){
         Restangular.all('tools').one(Utility.ToolName).get({fields:'toolname,viewname,jobs(jobname,status)'})
             .then(function (toolData){
                 toolData.Jobs.forEach(function(job){
@@ -65,7 +65,6 @@ angular.module('gsPlatformToolApp')
                     }
                 );
             });
-
     };
 
 
@@ -84,8 +83,9 @@ angular.module('gsPlatformToolApp')
     $scope.batchJobDeleteClick = function() {
         console.log('top job delete click');
     };
-    loadJobsData();
-  });
+
+
+    });
 
 
 

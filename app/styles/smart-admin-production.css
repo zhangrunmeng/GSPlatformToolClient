@@ -5582,6 +5582,7 @@ div.DTTT_collection a.DTTT_button {
 .form-inline .radiobox input[type="radio"].radiobox + span {
     margin-left: 0px;
 }
+
 .form-inline .checkbox,
 .form-inline .radiobox {
     padding-left: 0px;
@@ -7335,10 +7336,19 @@ button {
     padding: 0px !important;
 }
 .table thead tr,
-
 .table-bordered > thead > tr > th,
 .table-bordered > thead > tr > td {
     border-width: 1px;
+}
+.table thead tr{
+    background-color: #eee;
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#f2f2f2),to(#fafafa));
+    background-image: -webkit-linear-gradient(top,#f2f2f2 0,#fafafa 100%);
+    background-image: -moz-linear-gradient(top,#f2f2f2 0,#fafafa 100%);
+    background-image: -ms-linear-gradient(top,#f2f2f2 0,#fafafa 100%);
+    background-image: -o-linear-gradient(top,#f2f2f2 0,#fafafa 100%);
+    background-image: -linear-gradient(top,#f2f2f2 0,#fafafa 100%);
+    font-size: 12px;
 }
 .no-padding > .table-bordered {
     border: none !important;

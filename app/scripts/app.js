@@ -51,13 +51,14 @@ angular.module('gsPlatformToolApp')
         var dtJobInfo ='#dt_job_info';
         var dtJobPaginate ='#dt_job_paginate';
 
-
+        var modeEnum={extraSmall:0,small:1,medium:2,large:3}
         return {
 
             BuildStatusMap : buildStatusMap,
             ValidationJob  : validationJobName,
             ToolName : toolName,
             MenuOption : menuOption,
+            ModeEnum: modeEnum,
             pageGroup: pageGroup,
             dtJob : dtJob,
             dtJobInfo : dtJobInfo,
@@ -66,6 +67,7 @@ angular.module('gsPlatformToolApp')
             running:running,
             completed:completed,
             all:all,
-            defaultCategory: all
+            defaultCategory: all,
+
         };
     });

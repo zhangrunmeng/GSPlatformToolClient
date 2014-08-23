@@ -49,32 +49,39 @@
                     </div><!-- /.col-sm-4 col-md-3 -->
                     <div class="col-sm-5 col-md-5">
                         <!--<p><strong>Sorting:</strong> {{jobTableParams.sorting()|json}}-->
-                        <table  ng-table="jobTableParams" template-no-match="views/partials/filterNoMatch.html"  class="table dataTable table-striped  table-hover table-bordered table-noborder " style="width: 100%">
-                            <tr  ng-repeat="job in $data">
+                        <div class="dataTables_wrapper form-inline" role="grid">
+                            <table  ng-table="jobTableParams" template-no-match="views/partials/filterNoMatch.html"  class="table dataTable table-striped  table-hover table-bordered table-noborder " style="width: 100%">
+                                <!--<thead>
+                                  <tr>
+                                    <th ng-repeat="column in jobColumns" ng-show="column.visible" class=""></th>
+                                  </tr>
+                                </thead>-->
 
-                               <!-- <td data-title="''" ><div class="checkbox "><label><input type="checkbox" class="checkbox style-2" data-name="{{job.JobName}}"><span></span> </label></div></td>-->
-                                <td data-title="'Project Name'" sortable="'JobName'">{{ job.JobName }}</td>
-                                <td data-title="'Last Build'" sortable="'Status.Status'">{{ job.Status.Status }}</td>
-                                <td data-title="'Status'" sortable="'Result'">{{ job.Result }}</td>
-                                <td data-title="'Action'">
-                                <div class="btn-group action" data-toggle="buttons">
-                                    <label title="Start Job" class="btn btn-default btn-xs action " ng-click="jobStartClick(job.JobName)">
-                                        <input type="radio" name="style-a1" id="style-a1">
-                                        <i class="fa fa-play action"></i>
-                                    </label>
-                                    <label title="Stop Job" class="btn btn-default btn-xs action active" ng-click="jobStopClick(job.JobName)">
-                                        <input type="radio" name="style-a2" id="style-a2">
-                                        <i class="fa fa-stop action"></i>
-                                    </label>
-                                    <label title="Delete Job" class="btn btn-default btn-xs action " ng-click="jobDeleteClick(job.JobName)">
-                                        <input type="radio" name="style-a2" id="style-a3">
-                                        <i class="fa fa-trash-o action"></i>
-                                    </label>
-                                </div>
-                                </td>
-                            </tr>
+                                <tr  ng-repeat="job in $data">
 
-                        </table>
+                                    <td data-title="''" ng-show="mode<=2"><div class="checkbox "><label><input type="checkbox" class="checkbox style-2" data-name="{{job.JobName}}"><span></span> </label></div></td>
+                                    <td data-title="'Project Name'" sortable="'JobName'" >{{ job.JobName }}</td>
+                                    <td data-title="'Last Build'" sortable="'Status.Status'" ng-show ="mode>=1">{{ job.Status.Status }}</td>
+                                    <td data-title="'Status'" sortable="'Result'" ng-show="mode>=2">{{ job.Result }}</td>
+                                    <td data-title="'Action'" ng-show="mode==3">
+                                    <div class="btn-group action" data-toggle="buttons">
+                                        <label title="Start Job" class="btn btn-default btn-xs action " ng-click="jobStartClick(job.JobName)">
+                                            <input type="radio" name="style-a1" id="style-a1">
+                                            <i class="fa fa-play action"></i>
+                                        </label>
+                                        <label title="Stop Job" class="btn btn-default btn-xs action active" ng-click="jobStopClick(job.JobName)">
+                                            <input type="radio" name="style-a2" id="style-a2">
+                                            <i class="fa fa-stop action"></i>
+                                        </label>
+                                        <label title="Delete Job" class="btn btn-default btn-xs action " ng-click="jobDeleteClick(job.JobName)">
+                                            <input type="radio" name="style-a2" id="style-a3">
+                                            <i class="fa fa-trash-o action"></i>
+                                        </label>
+                                    </div>
+                                    </td>
+                                </tr>
+                            </table>
+                         </div>
 
                     </div><!-- /.col-sm-4 col-md-4 -->
                     <div class="col-sm-5 col-md-5">
@@ -100,3 +107,4 @@
 
 </div>
 <!-- END MAIN CONTENT -->
+
