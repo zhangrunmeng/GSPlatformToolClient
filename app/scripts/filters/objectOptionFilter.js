@@ -10,8 +10,8 @@
  */
 angular.module('gsPlatformToolApp')
   .filter('objectOptionFilter', function () {
-        return function(array, expression, comparator) {
-            if (!isArray(array)) return array;
+        return function(array,option, expression, comparator) {
+            if (!angular.isArray(array)) return array;
 
             var comparatorType = typeof(comparator),
                 predicates = [];
@@ -47,7 +47,7 @@ angular.module('gsPlatformToolApp')
                 }
             }
 
-            var search = function(obj, text){
+            var search = function(obj, text,option){
                 if (typeof text == 'string' && text.charAt(0) === '!') {
                     return !search(obj, text.substr(1));
                 }
@@ -61,9 +61,19 @@ angular.module('gsPlatformToolApp')
                             case "object":
                                 return comparator(obj, text);
                             default:
-                                for ( var objKey in obj) {
-                                    if (objKey.charAt(0) !== '$' && search(obj[objKey], text)) {
-                                        return true;
+                                // if option is not passed ,use default method
+                                if(angular.isUndefined(option)||option.length==0){
+                                     for ( var objKey in obj) {
+                                         if (objKey.charAt(0) !== '$' && search(obj[objKey], text)) {
+                                         return true;
+                                         }
+                                     }
+                                }
+                                else {
+                                    for(var optionKey in option){
+                                        if(angular.isDefined(obj[optionKey]) && search(obj[optionKey],text,option[optionKey])){
+                                            return true;
+                                        }
                                     }
                                 }
                                 break;
@@ -93,7 +103,7 @@ angular.module('gsPlatformToolApp')
                         (function(path) {
                             if (typeof expression[path] == 'undefined') return;
                             predicates.push(function(value) {
-                                return search(path == '$' ? value : (value && value[path]), expression[path]);
+                                return search(path == '$' ? value : (value && value[path]), expression[path],option);
                             });
                         })(key);
                     }

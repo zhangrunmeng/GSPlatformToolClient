@@ -20,6 +20,7 @@ angular
 angular.module('gsPlatformToolApp')
     .factory('Utility',function(){
         // job status
+        var all='All';
         var running="Running";
         var created="Created";
         var completed="Completed";
@@ -63,6 +64,8 @@ angular.module('gsPlatformToolApp')
             dtJobPaginate : dtJobPaginate,
             created: created,
             running:running,
-            completed:completed
+            completed:completed,
+            all:all,
+            defaultCategory: all
         };
     });

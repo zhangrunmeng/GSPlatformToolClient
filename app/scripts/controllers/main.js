@@ -10,13 +10,24 @@
 angular.module('gsPlatformToolApp')
   .controller('MainCtrl', function ($scope,$filter,Restangular,ngTableParams,Utility) {
 
+    // all kinds of category jobs count
+    $scope.selectedCategory= Utility.defaultCategory;
+    // category update
+    $scope.$watch("selectedCategory", function () {
+        if(angular.isDefined($scope.jobTableParams)){
+            $scope.jobTableParams.reload();
+        }
+    });
 
     // init scope jobs data
     $scope.jobFilter='';
-    /*var getFilter = function (){
-            var filter = $scope.
-        }*/
-    $scope.loadJobsData = function(){
+    $scope.$watch("jobFilter", function () {
+        if(angular.isDefined($scope.jobTableParams)){
+            $scope.jobTableParams.reload();
+        }
+    });
+
+    var loadJobsData = function(){
         Restangular.all('tools').one(Utility.ToolName).get({fields:'toolname,viewname,jobs(jobname,status)'})
             .then(function (toolData){
                 toolData.Jobs.forEach(function(job){
@@ -25,7 +36,6 @@ angular.module('gsPlatformToolApp')
                 $scope.jobs = toolData.Jobs.filter(function(job){
                     return job.JobName!= Utility.ValidationJob;
                 });
-
                // data=[{JobName:'1',Result:'3'},{JobName:'2',Result:'1'},{JobName:'3',Result:'4'},{JobName:'1',Result:'2'}]
                 },function(err){
                 console.log(err);
@@ -44,7 +54,9 @@ angular.module('gsPlatformToolApp')
                         counts: [], // hide the page size
                         total: $scope.jobs.length ,
                         getData: function($defer , params){
-                            var filteredData = $filter('filter')($scope.jobs,$scope.jobFilter);
+                            $scope.category = $filter('categoryCount')($scope.jobs);
+                            var categoryData = $filter('jogCategoryFilter')($scope.jobs,$scope.selectedCategory);
+                            var filteredData = $filter('objectOptionFilter')(categoryData,{JobName:"",Status:{Status:""},Result:""},$scope.jobFilter);
                             var orderedData = params.sorting() ?
                                 $filter('orderBy')(filteredData, params.orderBy()) :
                                 filteredData;
@@ -56,34 +68,6 @@ angular.module('gsPlatformToolApp')
 
     };
 
-
-    // trigger datatables filter;
-    $scope.oTableFilter = function(topJobFilter){
-        $scope.jobTable.tableObject.fnFilter(topJobFilter);
-    };
-
-    // category update
-    $scope.categoryAllClick = function(){
-        $scope.jobTableParams.data.pop();
-        //console.log($scope.jobs);
-        $scope.jobTableParams.reload();
-        // clear the filter on the third column
-        /*$scope.jobTable.tableObject.fnFilter('',3);
-        $scope.jobTable.tableObject.fnFilter('');*/
-    };
-    $scope.categoryCreatedClick = function(){
-        $scope.jobs.push({"JobName":"Product-version-component-testtag-faketool","Status":{"JobName":"Product-version-component-testtag-faketool","Status":"Success"}});
-       /* $scope.jobTable.tableObject.fnFilter('',3,true);
-        $scope.jobTable.tableObject.fnFilter(Utility.created, 3,true);*/
-    };
-    $scope.categoryRunningClick = function(){
-        $scope.jobTable.tableObject.fnFilter('',3,true);
-        $scope.jobTable.tableObject.fnFilter(Utility.running, 3,true);
-    };
-    $scope.categoryCompleteClick = function(){
-        $scope.jobTable.tableObject.fnFilter('',3,true);
-        $scope.jobTable.tableObject.fnFilter(Utility.completed, 3,true);
-    };
 
     // create job click
     $scope.createJobClick = function(){
@@ -100,8 +84,7 @@ angular.module('gsPlatformToolApp')
     $scope.batchJobDeleteClick = function() {
         console.log('top job delete click');
     };
-    $scope.loadJobsData();
-    console.log($scope);
+    loadJobsData();
   });
 
 
