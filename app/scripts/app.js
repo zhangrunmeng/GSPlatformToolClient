@@ -45,11 +45,16 @@ angular.module('gsPlatformToolApp')
             openedSign : '[-]'
         };
 
-        // page group
-        var pageGroup='#page-group';
-        var dtJob='#dt_job';
-        var dtJobInfo ='#dt_job_info';
-        var dtJobPaginate ='#dt_job_paginate';
+        // tab name
+        var settingTab='settingTab';
+        var configureTab ='configureTab';
+        var historyTab ='historyTab';
+        var reportTab ='reportTab';
+
+        // scm Type
+        var gitScmType ='StringDetectorService.ReqResModel.GitSettingDto, StringDetectorService';
+        var svnScmType ='StringDetectorService.ReqResModel.SVNSettingDto, StringDetectorService';
+        var perforceScmType ='StringDetectorService.ReqResModel.PerforceSettingDto, StringDetectorService';
 
         var modeEnum={extraSmall:0,small:1,medium:2,large:3}
         return {
@@ -59,15 +64,19 @@ angular.module('gsPlatformToolApp')
             ToolName : toolName,
             MenuOption : menuOption,
             ModeEnum: modeEnum,
-            pageGroup: pageGroup,
-            dtJob : dtJob,
-            dtJobInfo : dtJobInfo,
-            dtJobPaginate : dtJobPaginate,
             created: created,
             running:running,
             completed:completed,
             all:all,
             defaultCategory: all,
+            settingTab : settingTab,
+            historyTab : historyTab,
+            configureTab: configureTab,
+            reportTab: reportTab,
+            gitScmType:gitScmType,
+            svnScmType:svnScmType,
+            perforceScmType:perforceScmType
+
 
         };
     });

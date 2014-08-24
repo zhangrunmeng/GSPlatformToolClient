@@ -50,7 +50,9 @@
                     <div class="col-sm-5 col-md-5">
                         <div class="dataTables_wrapper form-inline" role="grid">
                             <table  ng-table="jobTableParams" template-no-match="views/partials/filterNoMatch.html"  class="table dataTable table-striped  table-hover table-bordered table-noborder " style="width: 100%">
-                                <tr  ng-repeat="job in $data">
+                                <tr  ng-repeat="job in $data"
+                                     ng-click="setSelected(job)"
+                                     ng-class="{'active': isSelected(job)}">
 
                                     <td data-title="''" ng-show="mode<=2"><div class="checkbox "><label><input type="checkbox" class="checkbox style-2" data-name="{{job.JobName}}"><span></span> </label></div></td>
                                     <td data-title="'Project Name'" sortable="'JobName'" >{{ job.JobName }}</td>
@@ -77,8 +79,8 @@
                          </div>
 
                     </div><!-- /.col-sm-4 col-md-4 -->
-                    <div class="col-sm-5 col-md-5" ng-include="'views/partials/jobDetail.html'" ng-controller="JobDetailCtrl">
-
+                    <div class="col-sm-5 col-md-5">
+                        <job-detail ng-controller="JobDetailCtrl"></job-detail>
                     </div><!-- /.col-sm-8 col-md-9 -->
                 </div><!-- /.row -->
             </div><!-- /.the-box -->

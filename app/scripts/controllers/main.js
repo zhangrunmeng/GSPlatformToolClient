@@ -27,10 +27,58 @@ angular.module('gsPlatformToolApp')
         }
     });
 
-    var getData = function(){
-
-        return filteredData;
+    $scope.isSelected = function(job){
+        return $scope.selectedJob===job;
     };
+    $scope.setSelected = function(job){
+        $scope.selectedJob =job;
+    }
+    // selected Job
+    $scope.$watch('selectedJob',function(newValue,oldValue){
+        if(angular.isUndefined(newValue)){
+            return;
+        }
+        // the first time set value or new selection
+        if(angular.isUndefined(oldValue)||newValue.JobName !=oldValue.JobName){
+            $scope.$broadcast('beginJobLoad',newValue);
+        }
+    });
+
+    // on job setting, configuration,builds,report added
+    $scope.$on('addJobSetting',function(event,jobName,Setting){
+       var toChangeJob =  $filter('filter')($scope.jobs,{JobName:jobName})[0];
+       var changeIndex = $scope.jobs.indexOf(toChangeJob);
+       $scope.jobs[changeIndex].Setting = Setting;
+       console.log($scope.jobs[changeIndex]);
+    });
+
+    $scope.$on('addJobConfiguration',function(event,jobName,Configuration){
+        var toChangeJob =  $filter('filter')($scope.jobs,{JobName:jobName})[0];
+        var changeIndex = $scope.jobs.indexOf(toChangeJob);
+        $scope.jobs[changeIndex].Configuration = Configuration;
+        console.log($scope.jobs[changeIndex]);
+    });
+
+    $scope.$on('addJobBuilds',function(event,jobName,Builds){
+        var toChangeJob =  $filter('filter')($scope.jobs,{JobName:jobName})[0];
+        var changeIndex = $scope.jobs.indexOf(toChangeJob);
+        $scope.jobs[changeIndex].Builds = Builds;
+        console.log($scope.jobs[changeIndex]);
+    });
+
+    $scope.$on('addJobReport',function(event,jobName,Report){
+        var toChangeJob =  $filter('filter')($scope.jobs,{JobName:jobName})[0];
+        var changeIndex = $scope.jobs.indexOf(toChangeJob);
+        $scope.jobs[changeIndex].Report = Report;
+        console.log($scope.jobs[changeIndex]);
+    });
+
+     // on jobs table data reloaded
+    $scope.$on('ngTableAfterReloadData',function(event,$data){
+        /*if($data.length>0 && angular.isUndefined($scope.selectedJob)){
+            $scope.selectedJob =$data[0];
+        }*/
+    });
     $scope.loadJobsData = function(){
         Restangular.all('tools').one(Utility.ToolName).get({fields:'toolname,viewname,jobs(jobname,status)'})
             .then(function (toolData){
@@ -40,6 +88,7 @@ angular.module('gsPlatformToolApp')
                 $scope.jobs = toolData.Jobs.filter(function(job){
                     return job.JobName!= Utility.ValidationJob;
                 });
+                $scope.selectedJob= $scope.jobs[0];
                // data=[{JobName:'1',Result:'3'},{JobName:'2',Result:'1'},{JobName:'3',Result:'4'},{JobName:'1',Result:'2'}]
                 },function(err){
                 console.log(err);
@@ -49,7 +98,8 @@ angular.module('gsPlatformToolApp')
                     {
                         page:1, // first page number
                         count:15, // count per page
-                        sorting: {            // initial sorting
+                        sorting: {
+                            JobName:'asc'     // initial sorting
                         }
                     },
                     {   $scope:$scope,
