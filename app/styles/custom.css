@@ -15,6 +15,7 @@
 .dataTables_wrapper.form-inline .radiobox input[type="radio"].radiobox  {
     position: absolute;
 }
+
 /**-------------------------------------------CUSTOM STYLE For NoTable-------------------------------------------**/
 .ng-table th.sortable.sort-desc,
 .ng-table th.sortable.sort-asc{

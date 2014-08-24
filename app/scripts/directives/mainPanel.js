@@ -33,13 +33,26 @@ angular.module('gsPlatformToolApp')
                   scope.$apply();
               }
           };
+          // fix page navbar height
+          var adjustNavHeight = function(){
+             var leftPanel= angular.element("[role='aside']");
+             var root = angular.element('body');
+             var setHeight = leftPanel.height()>$window.innerHeight ? leftPanel.height() : $window.innerHeight;
+             leftPanel.css('min-height',setHeight+'px');
+             root.css('min-height',setHeight+'px');
+          };
+
           angular.element($window).bind('resize',function(){
+              adjustNavHeight();
               scope.onResize();
           });
           scope.$watch('$viewContentLoaded', function() {
+              adjustNavHeight();
               scope.onResize();
               scope.loadJobsData();
+
           });
+
 
       }
     };

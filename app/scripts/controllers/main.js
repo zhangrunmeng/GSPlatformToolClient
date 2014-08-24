@@ -27,6 +27,10 @@ angular.module('gsPlatformToolApp')
         }
     });
 
+    var getData = function(){
+
+        return filteredData;
+    };
     $scope.loadJobsData = function(){
         Restangular.all('tools').one(Utility.ToolName).get({fields:'toolname,viewname,jobs(jobname,status)'})
             .then(function (toolData){
@@ -41,7 +45,6 @@ angular.module('gsPlatformToolApp')
                 console.log(err);
             }).then(function(){
                 // ng-table jobs table
-                console.log('transfer params');
                 $scope.jobTableParams = new ngTableParams(
                     {
                         page:1, // first page number
@@ -52,11 +55,12 @@ angular.module('gsPlatformToolApp')
                     {   $scope:$scope,
                         showDefaultPagination:false,
                         counts: [], // hide the page size
-                        total: $scope.jobs.length ,
                         getData: function($defer , params){
                             $scope.category = $filter('categoryCount')($scope.jobs);
                             var categoryData = $filter('jogCategoryFilter')($scope.jobs,$scope.selectedCategory);
                             var filteredData = $filter('objectOptionFilter')(categoryData,{JobName:"",Status:{Status:""},Result:""},$scope.jobFilter);
+                            // set total item size
+                            params.total(filteredData.length);
                             var orderedData = params.sorting() ?
                                 $filter('orderBy')(filteredData, params.orderBy()) :
                                 filteredData;

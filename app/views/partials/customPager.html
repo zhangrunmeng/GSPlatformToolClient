@@ -7,4 +7,4 @@
         </div>
     </div>
 </div>
-<div class="dataTables_info pull-right margin-right margin-top" id="dt_basic_info">Showing {{(params.page()-1)*params.count()+1}} to {{(params.page()-1)*params.count()+params.data.length}} of total {{params.total()}} Jobs</div>
+<div class="dataTables_info pull-right margin-right margin-top" id="dt_basic_info">Showing {{params.total()>0 ? (params.page()-1)*params.count()+1 : 0}} to {{(params.page()-1)*params.count()+params.data.length}} of total {{params.total()}} Jobs</div>
