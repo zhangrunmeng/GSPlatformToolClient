@@ -16,8 +16,8 @@
 
             <div class="the-box toolbar no-border no-margin">
                 <div class="btn-toolbar" role="toolbar" id ="top_toolbar">
-                    <div class="btn-group">
-                        <a href="javascript:void(0)"  title="Create New Job" class="btn btn-danger"  ng-click="createJobClick()" ><i class="fa fa-pencil"></i> New job</a>
+                    <div class="btn-group" ng-controller="JobCreateCtrl">
+                        <a href="javascript:void(0)"  title="Create New Job" class="btn btn-danger"  ng-click="openModal()" ><i class="fa fa-pencil"></i> New job</a>
                     </div>
                     <div class="btn-group" id = "action_top_toolbar">
                         <button data-toggle="tooltip" title="Start Checked Jobs" type="button" class="btn btn-success" data-original-title="Start"  ng-click="batchJobStartClick()"><i class="fa fa-play"></i></button>

@@ -9,7 +9,7 @@
 angular.module('gsPlatformToolApp')
   .directive('customMenu',function (Utility) {
     return {
-      templateUrl: 'views/partials/custom_menu.html',
+      templateUrl: '../../views/partials/customMenu.html',
       restrict: 'E',
       scope:true,
       link: function postLink(scope, element, attrs) {
