@@ -3,14 +3,17 @@
                 <h4 class="modal-title " >New Job</h4>
             </div>
             <div class="modal-body  no-padding">
+                <pre>form = {{job | json}}</pre>
+                <pre>validator = {{jobInfoForm | json}}</pre>
                 <form  name="jobInfoForm"  class="well form-horizontal no-padding  no-margin custom-form-3" novalidate>
                     <fieldset>
                         <legend class="custom-legend">Job Basic Settings</legend>
                         <div class="form-group custom-group">
                             <label class="control-label col-lg-3 custom-label" >Job Name </label>
                             <div class="col-lg-8">
-                                <input class="form-control"
-                                       name="jobName" type="text" value=""spellcheck="false"/>
+                                <input ng-model="job.JobName" class="form-control"
+                                       name="jobName" type="text" value=""spellcheck="false"
+                                       ng-minlength="5" required  />
 
                             </div>
                         </div>
@@ -18,9 +21,9 @@
                         <div class="form-group custom-group">
                             <label class="control-label col-lg-3 custom-label" >Upstream Project </label>
                             <div class="col-lg-8">
-                                <select class="form-control"  name="upstreamProject" class="form-control" required>
-                                    <option  >----------------------------Select----------------------------</option>
-                                    <option ng-repeat="job in srcJobs" value="job.JobName">{{job.JobName}}</option>
+                                <select  ng-model="job.UpstreamProject"  class="form-control"  name="upstreamProject" class="form-control" required>
+                                    <option  value="">----------------------------Select----------------------------</option>
+                                    <option ng-repeat="job in srcJobs" value="{{job.JobName}}">{{job.JobName}}</option>
                                 </select>
                             </div>
                         </div>
