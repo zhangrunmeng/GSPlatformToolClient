@@ -44,35 +44,6 @@ angular.module('gsPlatformToolApp')
         }
     });
 
-    // on job setting, configuration,builds,report added
-    $scope.$on('addJobSetting',function(event,jobName,Setting){
-       var toChangeJob =  $filter('filter')($scope.jobs,{JobName:jobName})[0];
-       var changeIndex = $scope.jobs.indexOf(toChangeJob);
-       $scope.jobs[changeIndex].Setting = Setting;
-       console.log($scope.jobs[changeIndex]);
-    });
-
-    $scope.$on('addJobConfiguration',function(event,jobName,Configuration){
-        var toChangeJob =  $filter('filter')($scope.jobs,{JobName:jobName})[0];
-        var changeIndex = $scope.jobs.indexOf(toChangeJob);
-        $scope.jobs[changeIndex].Configuration = Configuration;
-        console.log($scope.jobs[changeIndex]);
-    });
-
-    $scope.$on('addJobBuilds',function(event,jobName,Builds){
-        var toChangeJob =  $filter('filter')($scope.jobs,{JobName:jobName})[0];
-        var changeIndex = $scope.jobs.indexOf(toChangeJob);
-        $scope.jobs[changeIndex].Builds = Builds;
-        console.log($scope.jobs[changeIndex]);
-    });
-
-    $scope.$on('addJobReport',function(event,jobName,Report){
-        var toChangeJob =  $filter('filter')($scope.jobs,{JobName:jobName})[0];
-        var changeIndex = $scope.jobs.indexOf(toChangeJob);
-        $scope.jobs[changeIndex].Report = Report;
-        console.log($scope.jobs[changeIndex]);
-    });
-
      // on jobs table data reloaded
     $scope.$on('ngTableAfterReloadData',function(event,$data){
         /*if($data.length>0 && angular.isUndefined($scope.selectedJob)){
@@ -83,6 +54,21 @@ angular.module('gsPlatformToolApp')
     $rootScope.$on('createNewJob',function(event,data){
         $scope.jobs.push(data);
         $scope.jobTableParams.reload();
+    });
+
+    $scope.$on('upstreamProjectSettingUpdate',function(event,upstreamProjectName,updateSetting,excludeJobName){
+        $filter('filter')($scope.jobs,
+            function(item){
+
+               if(angular.isUndefined(item.Setting)){
+                   return false;
+               }
+               var shallUpdate =item.Setting.JobName==upstreamProjectName&&item.JobName!=excludeJobName;
+                if(shallUpdate){
+                    item.Setting = updateSetting;
+                }
+               return shallUpdate;
+           });
     });
     $scope.loadJobsData = function(){
         Restangular.one('tools',Utility.ToolName).get({fields:'toolname,viewname,jobs(jobname,status)'})

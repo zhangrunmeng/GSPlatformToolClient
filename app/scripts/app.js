@@ -12,7 +12,8 @@ angular
   .module('gsPlatformToolApp', [
     'restangular','ngTable','ui.bootstrap','ngMessages'
   ]).constant('serviceUrl','http://vhwebdevserver.eng.citrite.net')
-    .config(function(RestangularProvider,serviceUrl){
+    .constant('serviceUrl2','http://localhost:61586/')
+    .config(function(RestangularProvider,serviceUrl,serviceUrl2){
         RestangularProvider.setBaseUrl(serviceUrl+'/api/');
     });
 

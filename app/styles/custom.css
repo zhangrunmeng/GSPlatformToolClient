@@ -110,14 +110,17 @@
     margin: 0  1% ;
 }
 
-.custom-form .custom-control-1 input[type='text']{
+.custom-form .custom-control-1 input[type='text'],
+.custom-form .custom-control-1 input[type='url']
+{
     color:#808080;
     font-size: 15px;
     padding: 1px 6px;
     cursor: default !important;
 }
 
-.custom-form-edit .custom-control-1 input[type='text']{
+.custom-form-edit .custom-control-1 input[type='text'],
+.custom-form-edit .custom-control-1 input[type='url']{
     color:#232323;
     font-size: 15px;
     padding: 1px 6px;
@@ -138,7 +141,7 @@
 .custom-form-edit .custom-control-1 textarea {
     color:#232323;
     font-size: 15px;
-    height: 165px;
+    height: 145px;
     resize: none;
     padding: 1px 6px;
 }
