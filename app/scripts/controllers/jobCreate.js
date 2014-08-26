@@ -10,7 +10,7 @@
 angular.module('gsPlatformToolApp')
   .controller('JobCreateCtrl', function ($scope ,$modal,Restangular) {
     $scope.openModal =function(size){
-        Restangular.all('views').one('SRC').get({fields:'jobs(jobname)'})
+        Restangular.one('views','SRC').get({fields:'jobs(jobname)'})
             .then(function(viewData){
                 $scope.srcJobs = viewData.Jobs;
             })
@@ -29,12 +29,23 @@ angular.module('gsPlatformToolApp')
     };
   });
 
-var ModalInstanceCtrl = function ($scope, $modalInstance,srcJobs) {
+var ModalInstanceCtrl = function ($scope,Restangular,Utility, $modalInstance,srcJobs) {
 
 
-
+    $scope.job={};
     $scope.srcJobs = srcJobs;
-    $scope.ok = function () {
+    $scope.submit = function (isValid) {
+        $scope.submitted=true;
+        if(!isValid){
+            return;
+        }
+
+        Restangular.one('jobs').post($scope.job.JobName,$scope.job,{fields:'jobName,status'})
+            .then(function(data){
+                var newJob = {JobName:data.JobName,Status:data.Status,Result:Utility.BuildStatusMap[data.Status.Status]};
+                $modalInstance.dismiss('cancel');
+                $scope.$emit('createNewJob',newJob);
+            });
        // $modalInstance.close($scope.selected.item);
     };
 

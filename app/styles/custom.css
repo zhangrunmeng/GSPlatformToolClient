@@ -15,7 +15,16 @@
 .dataTables_wrapper.form-inline .radiobox input[type="radio"].radiobox  {
     position: absolute;
 }
-
+/**-------------------------------------------CUSTOM STYLE For Angular Validate-------------------------------------------**/
+.ng-dirty.ng-invalid.form-control{
+    border-color: #b94a48 !important;
+}
+.ng-dirty.ng-valid.form-control{
+    border-color: #468847 !important;
+}
+.ng-active{
+    color: red;
+}
 /**-------------------------------------------CUSTOM STYLE For NoTable-------------------------------------------**/
 .ng-table th.sortable.sort-desc,
 .ng-table th.sortable.sort-asc{

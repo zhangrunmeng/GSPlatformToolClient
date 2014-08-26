@@ -18,7 +18,7 @@ angular.module('gsPlatformToolApp')
         $scope.perforce=Utility.perforceScmType;
         // request for job data
         var getJobSetting = function (job) {
-            Restangular.all('jobs').one(job.JobName).get({fields:'setting'})
+            Restangular.one('jobs',job.JobName).get({fields:'setting'})
                 .then(function(jobData){
                     $scope.job.Setting = jobData.Setting;
                 })
@@ -27,7 +27,7 @@ angular.module('gsPlatformToolApp')
                 });
         };
         var getJobConfiguration = function(job){
-            Restangular.all('jobs').one(job.JobName).get({fields:'configuration'})
+            Restangular.one('jobs',job.JobName).get({fields:'configuration'})
                 .then(function(jobData){
                     $scope.job.Configuration = jobData.Configuration;
                 })
@@ -36,7 +36,7 @@ angular.module('gsPlatformToolApp')
                 });
         };
         var getJobBuilds = function(job){
-            Restangular.all('jobs').one(job.JobName).get({fields:'builds'})
+            Restangular.one('jobs',job.JobName).get({fields:'builds'})
                 .then(function(jobData){
                     $scope.job.Builds = jobData.Builds;
                 })
@@ -45,7 +45,7 @@ angular.module('gsPlatformToolApp')
                 });
         };
         var getJobReport = function(job){
-            Restangular.all('jobs').one(job.JobName).get({fields:'report'})
+            Restangular.one('jobs',job.JobName).get({fields:'report'})
                 .then(function(jobData){
                     $scope.job.Report = jobData.Report;
                 })

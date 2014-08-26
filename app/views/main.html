@@ -15,11 +15,11 @@
             </div>
 
             <div class="the-box toolbar no-border no-margin">
-                <div class="btn-toolbar" role="toolbar" id ="top_toolbar">
+                <div class="btn-toolbar" role="toolbar" >
                     <div class="btn-group" ng-controller="JobCreateCtrl">
                         <a href="javascript:void(0)"  title="Create New Job" class="btn btn-danger"  ng-click="openModal()" ><i class="fa fa-pencil"></i> New job</a>
                     </div>
-                    <div class="btn-group" id = "action_top_toolbar">
+                    <div class="btn-group"  ng-show="mode<=2">
                         <button data-toggle="tooltip" title="Start Checked Jobs" type="button" class="btn btn-success" data-original-title="Start"  ng-click="batchJobStartClick()"><i class="fa fa-play"></i></button>
                         <button data-toggle="tooltip" title="Stop Checked Jobs" type="button" class="btn btn-success" data-original-title="Stop"   ng-click="batchJobStopClick()"><i class="fa fa-stop"></i></button>
                         <button data-toggle="tooltip" title="Delete Checked Jobs" type="button" class="btn btn-success" data-original-title="Delete" ng-click="batchJobDeleteClick()"><i class="fa fa-trash-o"></i></button>

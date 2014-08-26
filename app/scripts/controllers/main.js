@@ -8,7 +8,7 @@
  * Controller of the stringDetectorWebClientAngularApp
  */
 angular.module('gsPlatformToolApp')
-  .controller('MainCtrl', function ($scope,$filter,Restangular,ngTableParams,Utility) {
+  .controller('MainCtrl', function ($scope,$rootScope,$filter,Restangular,ngTableParams,Utility) {
 
     // all kinds of category jobs count
     $scope.selectedCategory= Utility.defaultCategory;
@@ -79,8 +79,13 @@ angular.module('gsPlatformToolApp')
             $scope.selectedJob =$data[0];
         }*/
     });
+
+    $rootScope.$on('createNewJob',function(event,data){
+        $scope.jobs.push(data);
+        $scope.jobTableParams.reload();
+    });
     $scope.loadJobsData = function(){
-        Restangular.all('tools').one(Utility.ToolName).get({fields:'toolname,viewname,jobs(jobname,status)'})
+        Restangular.one('tools',Utility.ToolName).get({fields:'toolname,viewname,jobs(jobname,status)'})
             .then(function (toolData){
                 toolData.Jobs.forEach(function(job){
                     job.Result = Utility.BuildStatusMap[job.Status.Status];
