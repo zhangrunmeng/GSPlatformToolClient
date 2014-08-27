@@ -39,6 +39,7 @@ angular.module('gsPlatformToolApp')
                 });
         };
         var getJobReport = function(job){
+            $scope.lastBuildUrl=Restangular.one('jobs',$scope.job.JobName).one('report','lastBuild').one('file').getRequestedUrl();
             Restangular.one('jobs',job.JobName).get({fields:'report'})
                 .then(function(jobData){
                     $scope.job.Report = jobData.Report;
@@ -103,6 +104,14 @@ angular.module('gsPlatformToolApp')
 
         });
 
+
+        // change config file event from fileread directive
+
+        $scope.$on('changeConfigContent',function(event,content){
+            $scope.configEdit=true;
+            $scope.copyJob.Configuration.Configuration=content;
+            $scope.$apply();
+        });
         // ng-table params for history builds
         $scope.historyTableParams=new ngTableParams(
             {
@@ -164,6 +173,7 @@ angular.module('gsPlatformToolApp')
                     });
             }
         };
+
 
 
   });

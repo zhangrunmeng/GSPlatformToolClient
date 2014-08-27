@@ -246,8 +246,9 @@
                         <span class="widget-icon" ng-show="configEdit" ng-click="saveConfig(configForm.$valid)"> <a href="#"
                                                                                                              title="save"> <i
                                 class="fa fa-save"></i> </a></span>
-                        <span class="widget-icon" id="upload-project-config-icon--"> <a href="#" title="upload"><i
-                                class="fa fa-upload"></i></a> </span>
+                        <span class="widget-icon" >
+                            <file-read></file-read>
+                        </span>
                     </header>
 
                     <fieldset>
@@ -264,7 +265,7 @@
                                             readonly>{{copyJob.Configuration.Configuration?copyJob.Configuration.Configuration:'No available data'}}
                                     </textarea>
 
-                                    <input type="file" id="project-configuration-file--" style="display: none">
+
                                 </div>
 
                             </section>
@@ -336,7 +337,7 @@
                 <form id="project-report-form--" class="smart-form custom-form" novalidate="novalidate">
                     <header>
                         <span>Last Build</span>
-                        <span class="widget-icon" id="download-project-report-icon--"> <a href="javascript:void(0)"
+                        <span class="widget-icon" > <a href="{{lastBuildUrl}}" download="report.txt"
                                                                                           title="download"><i
                                 class="fa fa-download"></i></a> </span>
                         <span class="widget-icon " id="popout-project-report-icon--"> <a href="javascript:void(0)"
