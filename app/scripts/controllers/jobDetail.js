@@ -109,13 +109,19 @@ angular.module('gsPlatformToolApp')
             $scope.showSpeciBuild=false;
         });
 
-        // change config file event from fileread directive
-
-        $scope.$on('changeConfigContent',function(event,content){
-            $scope.configEdit=true;
-            $scope.copyJob.Configuration.Configuration=content;
-            $scope.$apply();
+        $scope.$on('beginJobStart',function(event){
+            $scope.selectedTab=Utility.reportTab;
         });
+        $scope.$on('afterJobStop',function(event){
+            if(angular.isDefined($scope.job.Builds)){
+                $scope.historyTableParams.reload();
+            };
+        });
+
+        $scope.$on('scrollReport',function(event,appendReport){
+           console.log('scroll animation');
+        });
+
         // ng-table params for history builds
         $scope.historyTableParams=new ngTableParams(
             {
@@ -141,7 +147,7 @@ angular.module('gsPlatformToolApp')
             }
         );
 
-        // save action
+        // save setting and configuation
         $scope.saveBasic= function(isValid){
             if(!isValid){
                 return;
@@ -181,14 +187,19 @@ angular.module('gsPlatformToolApp')
                     });
             }
         };
+        // change config file event from fileread directive
+        $scope.$on('changeConfigContent',function(event,content){
+            $scope.configEdit=true;
+            $scope.copyJob.Configuration.Configuration=content;
+            $scope.$apply();
+        });
 
-
+        // view history build logic
         $scope.showBuild= function(build){
             $scope.showSpeciBuild=true;
             $scope.selectedBuild=build;
             $scope.selectedIndex= $scope.job.Builds.JobHistories.indexOf(build);
         };
-
         $scope.hasNoPrevBuild= function(){
             return $scope.selectedIndex==$scope.job.Builds.JobHistories.length-1;
         };

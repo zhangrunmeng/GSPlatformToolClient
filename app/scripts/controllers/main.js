@@ -8,7 +8,8 @@
  * Controller of the stringDetectorWebClientAngularApp
  */
 angular.module('gsPlatformToolApp')
-  .controller('MainCtrl', function ($scope,$rootScope,$filter,Restangular,ngTableParams,Utility) {
+  .controller('MainCtrl', function ($scope,$rootScope,$filter,Restangular,ngTableParams,signalRHubProxy,serviceUrl,serviceUrl2,Utility) {
+    var jobHubProxy = signalRHubProxy(serviceUrl2,'jobHub',{logging:true});
 
     // all kinds of category jobs count
     $scope.selectedCategory= Utility.defaultCategory;
@@ -142,9 +143,19 @@ angular.module('gsPlatformToolApp')
         angular.forEach(jobs,function(job){
             Restangular.one('jobs',job.JobName).post('start',null,{fields:'status'})
                 .then(function(jobData){
-                    job.Status=jobData.Status;
-                    job.Result=Utility.BuildStatusMap[job.Status.Status];
-                    $scope.jobTableParams.reload();
+
+                        job.Status=jobData.Status;
+                        job.Result=Utility.BuildStatusMap[job.Status.Status];
+                        if(angular.isUndefined(job.Report)){
+                            job.Report={JobName:job.JobName,Report:""};
+                        }else{
+                            job.Report.Report="";
+                        }
+                        $scope.jobTableParams.reload();
+                        $scope.invokeFetchJobReport(job.JobName);
+                        if(job==$scope.selectedJob){
+                            $scope.$broadcast('beginJobStart');
+                        }
                 });
         });
     };
@@ -170,6 +181,30 @@ angular.module('gsPlatformToolApp')
                });
        });
     };
+
+    // fetch Job Report
+    $scope.invokeFetchJobReport = function(jobName){
+       jobHubProxy.invoke('fetchJobReport',jobName);
+    };
+    jobHubProxy.on('appendReport',function(jobName,report){
+       var updateJob=  $filter('filter')($scope.jobs,{JobName:jobName})[0];
+       updateJob.Report.Report+=report;
+       if($scope.selectedJob.JobName==jobName){
+           $scope.$broadcast('scrollReport');
+       };
+
+    });
+    jobHubProxy.on('updateReportCallback',function(jobName){
+        Restangular.one('jobs',jobName).get({fields:'builds,status,report'})
+            .then(function(jobData){
+               var updateJob= $filter('filter')($scope.jobs,{JobName:jobName})[0];
+                updateJob.Status=jobData.Status;
+                updateJob.Result=Utility.BuildStatusMap[jobData.Status.Status];
+                updateJob.Builds=jobData.Builds;
+                updateJob.Report=jobData.Report;
+                $scope.$broadcast('afterJobStop');
+            });
+    });
 });
 
 
