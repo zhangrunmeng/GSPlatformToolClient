@@ -151,7 +151,6 @@ angular.module('gsPlatformToolApp')
                         }else{
                             job.Report.Report="";
                         }
-                        $scope.jobTableParams.reload();
                         $scope.invokeFetchJobReport(job.JobName);
                         if(job==$scope.selectedJob){
                             $scope.$broadcast('beginJobStart');
@@ -200,7 +199,10 @@ angular.module('gsPlatformToolApp')
                var updateJob= $filter('filter')($scope.jobs,{JobName:jobName})[0];
                 updateJob.Status=jobData.Status;
                 updateJob.Result=Utility.BuildStatusMap[jobData.Status.Status];
-                updateJob.Builds=jobData.Builds;
+                if(angular.isDefined(updateJob.Builds)){
+                    // to prevent ng-table initial $data=null
+                    updateJob.Builds=jobData.Builds;
+                }
                 updateJob.Report=jobData.Report;
                 $scope.$broadcast('afterJobStop');
             });
