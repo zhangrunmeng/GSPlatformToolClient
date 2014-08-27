@@ -275,56 +275,54 @@
             </div>
             <!-- /.panel-body -->
         </div>
-        <div class="tab-pane custom-panel" ng-class="{true:'active',false:'fade'}[selectedTab=='historyTab']">
-            <div class="panel-body no-padding" ng-if="job.Builds">
-                <div class="dataTables_wrapper form-inline" role="grid">
+        <div class="tab-pane custom-panel" ng-class="{true:'active',false:'fade'}[selectedTab=='historyTab']" ng-init="showSpeciBuild=false">
+            <div ng-hide="showSpeciBuild" class="panel-body no-padding" ng-if="job.Builds">
+                <div class="dataTables_wrapper form-inline" role="grid" style="height: 600px; width: 100%;overflow: auto">
                     <table ng-table="historyTableParams" template-no-match="views/partials/filterNoMatch.html" class="table dataTable table-striped  table-hover table-bordered table-noborder">
                         <tr  ng-repeat="build in $data" ng-class="{'even':$even,'odd':$odd}">
                             <td data-title="'Display Name'">
-                                <a href="javascript:void(0)" data-build-number="{{build.Number}}}" data-job-name="{{job.JobName}}}">{{build.FullDisplayName.replace(job.JobName,'Build')}}</a>
+                                <a href="javascript:void(0)" ng-click="showBuild(build);" >{{build.FullDisplayName.replace(job.JobName,'Build')}}</a>
                             </td>
                             <td data-title="'Build Time'"> {{build.Id.split('_')[0].concat(" ").concat(build.Id.split('_')[1].split('-').join(":"))}}</td>
                             <td data-title="'Duration'">{{build.Duration+"s"}}</td>
                             <td data-title="'Result'">{{build.Result}}</td>
                         </tr>
                     </table>
+                 </div>
             </div>
-
-                <form id="buildViewBody" class="smart-form custom-form" style="display: none" novalidate="novalidate">
-                    <header>
-                        <span id="buildViewInfo"> Content</span>
-                        <span class="widget-icon" id="download-build-report-icon" data-build-number=""> <a
-                                href="javascript:void(0)" title="download"><i class="fa fa-download"></i></a> </span>
-                        <span class="widget-icon " id="popout-build-report-icon" data-build-number=""> <a
+            <form ng-show="showSpeciBuild"  class="smart-form custom-form"  novalidate="novalidate">
+                <header>
+                    <span > {{job.JobName+'#'+selectedBuild.Number}}</span>
+                        <span class="widget-icon"  > <a
+                                href="{{selectedBuildUrl}}" title="download"><i class="fa fa-download"></i></a> </span>
+                        <span class="widget-icon " > <a
                                 href="javascript:void(0)" title="popout"> <i class="fa fa-external-link"></i> </a></span>
-                    </header>
+                </header>
 
-                    <fieldset style="display: block;">
-                        <div class="row">
-                            <section class="">
+                <fieldset >
+                    <div class="row">
+                        <section class="">
 
-                                <div class="custom-control-2 ">
-                                    <textarea id="buildView" data-build-number="" class="form-control no-border"
-                                              spellcheck="false" readonly></textarea>
-                                </div>
+                            <div class="custom-control-2 ">
+                                <textarea class="form-control no-border"
+                                          spellcheck="false" readonly>{{selectedBuildReport}}</textarea>
+                            </div>
 
-                            </section>
-                        </div>
-                    </fieldset>
-                </form>
-
-            </div>
+                        </section>
+                    </div>
+                </fieldset>
+            </form>
             <!-- /.panel-body -->
-            <div class="panel-footer" style="display: none" id="buildViewFooter">
+            <div ng-show="showSpeciBuild" class="panel-footer"  >
                 <div class="row">
                     <div class="col-sm-6">
-                        <a class="btn btn-warning " title="Prev Build" id="viewPreBuild"><i class="fa fa-chevron-left"></i> </a>
-                        <a class="btn btn-warning " title="Next Build" id="viewNextBuild"><i class="fa fa-chevron-right"></i>
+                        <a class="btn btn-warning " title="Prev Build" ng-class="{active:hasNoPrev()}"  ng-click="prevBuild()"><i class="fa fa-chevron-left"></i> </a>
+                        <a class="btn btn-warning " title="Next Build" ng-class="{active:hasNoNext()}" ng-click="nextBuild()" ><i class="fa fa-chevron-right"></i>
                         </a>
                     </div>
                     <!-- /.col-sm-6 -->
                     <div class="col-sm-6 text-right">
-                        <a class="btn btn-warning" id="returnBuildList"><i class="fa fa-mail-reply"></i> Return</a>
+                        <a class="btn btn-warning" ng-click="showSpeciBuild=false"><i class="fa fa-mail-reply"></i> Return</a>
                     </div>
                     <!-- /.col-sm-6 -->
                 </div>

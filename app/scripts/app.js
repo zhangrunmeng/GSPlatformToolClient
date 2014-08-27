@@ -13,8 +13,9 @@ angular
     'restangular','ngTable','ui.bootstrap','ngMessages'
   ]).constant('serviceUrl','http://vhwebdevserver.eng.citrite.net')
     .constant('serviceUrl2','http://localhost:61586/')
-    .config(function(RestangularProvider,serviceUrl,serviceUrl2){
+    .config(function(RestangularProvider,serviceUrl,serviceUrl2,$logProvider){
         RestangularProvider.setBaseUrl(serviceUrl+'/api/');
+        $logProvider.debugEnabled(true);
     });
 
 

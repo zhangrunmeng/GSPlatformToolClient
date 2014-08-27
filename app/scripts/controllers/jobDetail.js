@@ -16,7 +16,7 @@ angular.module('gsPlatformToolApp')
         $scope.git=Utility.gitScmType;
         $scope.svn=Utility.svnScmType;
         $scope.perforce=Utility.perforceScmType;
-
+        $scope.selectedBuild;
         // request for job data
         var getJobSetting = function (job) {
             Restangular.one('jobs',job.JobName).get({fields:'setting'})
@@ -101,9 +101,13 @@ angular.module('gsPlatformToolApp')
             if(angular.isDefined($scope.configForm)){
                 $scope.configForm.$setPristine();
             }
-
+            // reset table data
+            if(angular.isDefined($scope.historyTableParams)&&$scope.job.Builds){
+                $scope.historyTableParams.reload();
+            }
+            // reset view build state
+            $scope.showSpeciBuild=false;
         });
-
 
         // change config file event from fileread directive
 
@@ -116,7 +120,7 @@ angular.module('gsPlatformToolApp')
         $scope.historyTableParams=new ngTableParams(
             {
                 page:1, // first page number
-                count: 15, // count per page
+                count:15, // count per page
                 sorting: {
                     'Number':'desc'      // initial sorting
                 }
@@ -126,7 +130,11 @@ angular.module('gsPlatformToolApp')
                 counts: [], // hide the page size
                 getData: function($defer , params){
                     var data =$scope.job.Builds.JobHistories;
-                    params.total(data?data.length:0);
+                    if(angular.isUndefined(data)||data==null){
+                        data=[];
+                    }
+                    params.total(data.length);
+                    params.count(data.length);
                     $defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
                     //$defer.resolve(data);
                 }
@@ -174,6 +182,43 @@ angular.module('gsPlatformToolApp')
             }
         };
 
+
+        $scope.showBuild= function(build){
+            $scope.showSpeciBuild=true;
+            $scope.selectedBuild=build;
+            $scope.selectedIndex= $scope.job.Builds.JobHistories.indexOf(build);
+        };
+
+        $scope.hasNoPrevBuild= function(){
+            return $scope.selectedIndex==$scope.job.Builds.JobHistories.length-1;
+        };
+        $scope.hasNoNextBuild = function(){
+            return $scope.selectedIndex==0;
+        };
+        $scope.prevBuild=function(){
+            if($scope.hasNoPrevBuild()){
+                return;
+            }
+            $scope.selectedIndex++;
+            $scope.selectedBuild=$scope.job.Builds.JobHistories[$scope.selectedIndex];
+        };
+        $scope.nextBuild=function(){
+            if($scope.hasNoNextBuild()){
+                return;
+            }
+            $scope.selectedIndex--;
+            $scope.selectedBuild=$scope.job.Builds.JobHistories[$scope.selectedIndex];
+        };
+        $scope.$watch('selectedBuild',function(build){
+            if(angular.isUndefined(build)){
+                return;
+            }
+            $scope.selectedBuildUrl =Restangular.one('jobs',$scope.job.JobName).one('report',build.Number).one('file').getRequestedUrl();
+            Restangular.one('jobs',$scope.job.JobName).one('report',build.Number).get({fields:'report'})
+                .then(function(jobData){
+                    $scope.selectedBuildReport = jobData.Report;
+                });
+        });
 
 
   });
