@@ -18,8 +18,49 @@ angular.module('gsPlatformToolApp')
             $scope.jobTableParams.reload();
         }
     });
-
-    // init scope jobs data
+     // init jobs data
+    $scope.loadJobsData = function(){
+            Restangular.one('tools',Utility.ToolName).get({fields:'toolname,viewname,jobs(jobname,status)'})
+                .then(function (toolData){
+                    toolData.Jobs.forEach(function(job){
+                        job.Result = Utility.BuildStatusMap[job.Status.Status];
+                    });
+                    $scope.jobs = toolData.Jobs.filter(function(job){
+                        return job.JobName!= Utility.ValidationJob;
+                    });
+                    $scope.selectedJob= $scope.jobs[0];
+                    // data=[{JobName:'1',Result:'3'},{JobName:'2',Result:'1'},{JobName:'3',Result:'4'},{JobName:'1',Result:'2'}]
+                },function(err){
+                    console.log(err);
+                }).then(function(){
+                    // ng-table jobs table
+                    $scope.jobTableParams = new ngTableParams(
+                        {
+                            page:1, // first page number
+                            count:15, // count per page
+                            sorting: {
+                                JobName:'asc'     // initial sorting
+                            }
+                        },
+                        {   $scope:$scope,
+                            showDefaultPagination:false,
+                            counts: [], // hide the page size
+                            getData: function($defer , params){
+                                $scope.category = $filter('categoryCount')($scope.jobs);
+                                var categoryData = $filter('jogCategoryFilter')($scope.jobs,$scope.selectedCategory);
+                                var filteredData = $filter('objectOptionFilter')(categoryData,{JobName:"",Status:{Status:""},Result:""},$scope.jobFilter);
+                                // set total item size
+                                params.total(filteredData.length);
+                                var orderedData = params.sorting() ?
+                                    $filter('orderBy')(filteredData, params.orderBy()) :
+                                    filteredData;
+                                $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                            }
+                        }
+                    );
+                });
+        };
+    // a global filter for jobs
     $scope.jobFilter='';
     $scope.$watch("jobFilter", function () {
         if(angular.isDefined($scope.jobTableParams)){
@@ -27,10 +68,11 @@ angular.module('gsPlatformToolApp')
         }
     });
 
+     //sigle select job to show detail info
     $scope.isSelected = function(job){
         return $scope.selectedJob===job;
     };
-    $scope.setSelected = function(job){
+    $scope.setSelected = function(job,$event){
         $scope.selectedJob =job;
     }
     // selected Job
@@ -44,6 +86,17 @@ angular.module('gsPlatformToolApp')
         }
     });
 
+    // multple selections
+    $scope.selections=[];
+    $scope.toggleSelection = function(job){
+        var index = $scope.selections.indexOf(job);
+        if(index>-1){
+            $scope.selections.splice(index,1);
+        }else{
+            $scope.selections.push(job);
+        }
+    };
+
      // on jobs table data reloaded
     $scope.$on('ngTableAfterReloadData',function(event,$data){
         /*if($data.length>0 && angular.isUndefined($scope.selectedJob)){
@@ -51,11 +104,23 @@ angular.module('gsPlatformToolApp')
         }*/
     });
 
+
+    /*$scope.$watch('jobs',function(newValue,oldValue){
+      if(angular.isUndefined(oldValue)||angular.isUndefined(newValue)){
+          return;
+      };
+      if(newValue.length!=oldValue.length){
+          $scope.jobTableParams.reload();
+      }
+    });*/
+
+    // create job call back
     $rootScope.$on('createNewJob',function(event,data){
         $scope.jobs.push(data);
         $scope.jobTableParams.reload();
     });
 
+    // job setting update  call back
     $scope.$on('upstreamProjectSettingUpdate',function(event,upstreamProjectName,updateSetting,excludeJobName){
         $filter('filter')($scope.jobs,
             function(item){
@@ -70,67 +135,42 @@ angular.module('gsPlatformToolApp')
                return shallUpdate;
            });
     });
-    $scope.loadJobsData = function(){
-        Restangular.one('tools',Utility.ToolName).get({fields:'toolname,viewname,jobs(jobname,status)'})
-            .then(function (toolData){
-                toolData.Jobs.forEach(function(job){
-                    job.Result = Utility.BuildStatusMap[job.Status.Status];
-                });
-                $scope.jobs = toolData.Jobs.filter(function(job){
-                    return job.JobName!= Utility.ValidationJob;
-                });
-                $scope.selectedJob= $scope.jobs[0];
-               // data=[{JobName:'1',Result:'3'},{JobName:'2',Result:'1'},{JobName:'3',Result:'4'},{JobName:'1',Result:'2'}]
-                },function(err){
-                console.log(err);
-            }).then(function(){
-                // ng-table jobs table
-                $scope.jobTableParams = new ngTableParams(
-                    {
-                        page:1, // first page number
-                        count:15, // count per page
-                        sorting: {
-                            JobName:'asc'     // initial sorting
-                        }
-                    },
-                    {   $scope:$scope,
-                        showDefaultPagination:false,
-                        counts: [], // hide the page size
-                        getData: function($defer , params){
-                            $scope.category = $filter('categoryCount')($scope.jobs);
-                            var categoryData = $filter('jogCategoryFilter')($scope.jobs,$scope.selectedCategory);
-                            var filteredData = $filter('objectOptionFilter')(categoryData,{JobName:"",Status:{Status:""},Result:""},$scope.jobFilter);
-                            // set total item size
-                            params.total(filteredData.length);
-                            var orderedData = params.sorting() ?
-                                $filter('orderBy')(filteredData, params.orderBy()) :
-                                filteredData;
-                            $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-                        }
-                    }
-                );
-            });
-    };
 
-
-    // create job click
-    $scope.createJobClick = function(){
-        console.log('create job button');
-    };
 
     // top job tool bar
-    $scope.batchJobStartClick = function(){
-        console.log('top job start click');
-    };
-    $scope.batchJobStopClick = function(){
-        console.log('top job stop click');
-    };
-    $scope.batchJobDeleteClick = function() {
-        console.log('top job delete click');
+    $scope.jobStart = function(jobs){
+        angular.forEach(jobs,function(job){
+            Restangular.one('jobs',job.JobName).post('start',null,{fields:'status'})
+                .then(function(jobData){
+                    job.Status=jobData.Status;
+                    job.Result=Utility.BuildStatusMap[job.Status.Status];
+                    $scope.jobTableParams.reload();
+                });
+        });
     };
 
+    $scope.jobStop = function(jobs){
+        angular.forEach(jobs,function(job){
+            Restangular.one('jobs',job.JobName).one('stop').remove({fields:'status'})
+                .then(function(jobData){
+                    job.Status=jobData.Status;
+                    job.Result=Utility.BuildStatusMap[job.Status.Status];
+                    $scope.jobTableParams.reload();
+                });
+        });
+    };
 
-    });
+    $scope.jobDelete = function(jobs) {
+       angular.forEach(jobs,function(job){
+           Restangular.one('jobs',job.JobName).remove()
+               .then(function(jobName){
+                 var removeIndex= $scope.jobs.indexOf(job);
+                 $scope.jobs.splice(removeIndex,1);
+                 $scope.jobTableParams.reload();
+               });
+       });
+    };
+});
 
 
 

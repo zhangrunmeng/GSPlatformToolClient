@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/app/scripts/controllers/jobDetail.js" line="202" mnemonic="4" />
+    <bookmark url="file://$PROJECT_DIR$/app/views/main.html" line="53" mnemonic="4" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6c0bbbba-764a-40f6-afba-07667b34d3f1" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/app.js" afterPath="$PROJECT_DIR$/app/scripts/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/partials/jobDetail.html" afterPath="$PROJECT_DIR$/app/views/partials/jobDetail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/controllers/jobDetail.js" afterPath="$PROJECT_DIR$/app/scripts/controllers/jobDetail.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/main.html" afterPath="$PROJECT_DIR$/app/views/main.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/controllers/main.js" afterPath="$PROJECT_DIR$/app/scripts/controllers/main.js" />
     </list>
     <ignored path="StringDetectorWebClient-Angular.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -43,8 +43,8 @@
       <file leaf-file-name="jobDetail.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/scripts/controllers/jobDetail.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.40625" vertical-offset="2076" max-vertical-offset="3612">
-              <caret line="132" column="62" selection-start-line="132" selection-start-column="62" selection-end-line="132" selection-end-column="62" />
+            <state vertical-scroll-proportion="0.9895833" vertical-offset="1887" max-vertical-offset="3612">
+              <caret line="139" column="17" selection-start-line="139" selection-start-column="17" selection-end-line="139" selection-end-column="17" />
               <folding>
                 <element signature="e#20056#20320#0" expanded="false" />
                 <element signature="e#20369#20651#0" expanded="false" />
@@ -61,8 +61,8 @@
       <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/scripts/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1869">
-              <caret line="18" column="7" selection-start-line="15" selection-start-column="4" selection-end-line="18" selection-end-column="7" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="426" max-vertical-offset="1848">
+              <caret line="25" column="28" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -83,19 +83,37 @@
       <file leaf-file-name="main.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/main.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-14.866667" vertical-offset="541" max-vertical-offset="2163">
-              <caret line="47" column="30" selection-start-line="47" selection-start-column="30" selection-end-line="47" selection-end-column="30" />
+            <state vertical-scroll-proportion="-4.9636364" vertical-offset="1155" max-vertical-offset="2247">
+              <caret line="68" column="93" selection-start-line="68" selection-start-column="80" selection-end-line="68" selection-end-column="93" />
+              <folding>
+                <element signature="n#style#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#2;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="jobCreate.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/scripts/controllers/jobCreate.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1260">
+              <caret line="44" column="90" selection-start-line="44" selection-start-column="90" selection-end-line="44" selection-end-column="90" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ng-table.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bower_components/ng-table-extend/ng-table.js">
+      <file leaf-file-name="main.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/scripts/controllers/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.68" vertical-offset="13857" max-vertical-offset="15939">
-              <caret line="669" column="35" selection-start-line="669" selection-start-column="30" selection-end-line="669" selection-end-column="35" />
-              <folding />
+            <state vertical-scroll-proportion="-14.32" vertical-offset="2204" max-vertical-offset="3192">
+              <caret line="153" column="67" selection-start-line="153" selection-start-column="67" selection-end-line="153" selection-end-column="67" />
+              <folding>
+                <element signature="e#3115#3230#0" expanded="false" />
+                <element signature="e#3315#3363#0" expanded="false" />
+                <element signature="e#3530#3809#0" expanded="false" />
+                <element signature="e#4201#4335#0" expanded="false" />
+                <element signature="e#4912#5347#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -148,7 +166,6 @@
         <option value="$PROJECT_DIR$/bower_components/ng-table/ng-table.js" />
         <option value="$PROJECT_DIR$/Gruntfile.js" />
         <option value="$PROJECT_DIR$/app/views/partials/create_job_modal.html" />
-        <option value="$PROJECT_DIR$/app/views/main.html" />
         <option value="$PROJECT_DIR$/app/styles/smart-admin-production.css" />
         <option value="$PROJECT_DIR$/app/views/partials/createJobModal.html" />
         <option value="$PROJECT_DIR$/app/index.html" />
@@ -157,13 +174,14 @@
         <option value="$PROJECT_DIR$/app/scripts/directives/uniqueJobName.js" />
         <option value="$PROJECT_DIR$/app/scripts/directives/customJobName.js" />
         <option value="$PROJECT_DIR$/bower_components/ng-table-extend/.bower.json" />
-        <option value="$PROJECT_DIR$/app/scripts/controllers/main.js" />
         <option value="$PROJECT_DIR$/app/scripts/directives/checkTiming.js" />
         <option value="$PROJECT_DIR$/app/scripts/directives/fileRead.js" />
-        <option value="$PROJECT_DIR$/app/scripts/app.js" />
-        <option value="$PROJECT_DIR$/bower_components/ng-table-extend/ng-table.js" />
         <option value="$PROJECT_DIR$/app/views/partials/jobDetail.html" />
         <option value="$PROJECT_DIR$/app/scripts/controllers/jobDetail.js" />
+        <option value="$PROJECT_DIR$/app/scripts/app.js" />
+        <option value="$PROJECT_DIR$/bower_components/ng-table-extend/ng-table.js" />
+        <option value="$PROJECT_DIR$/app/views/main.html" />
+        <option value="$PROJECT_DIR$/app/scripts/controllers/main.js" />
       </list>
     </option>
   </component>
@@ -239,25 +257,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="bower_components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GSPlatformTool" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GSPlatformToolClient" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bower_components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ng-table-extend" />
+              <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -272,6 +272,10 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scripts" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -386,14 +390,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Grunt" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3381535" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2880979" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32963374" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14797261" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15323855" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15323855" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -660,14 +664,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/controllers/jobCreate.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5714286" vertical-offset="546" max-vertical-offset="1260">
-          <caret line="42" column="74" selection-start-line="42" selection-start-column="68" selection-end-line="42" selection-end-column="74" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/styles/custom.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5878261" vertical-offset="2287" max-vertical-offset="52437">
@@ -742,14 +738,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/controllers/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3003">
-          <caret line="16" column="53" selection-start-line="16" selection-start-column="53" selection-end-line="16" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/webstorm.jar!/resources/html5-schema/html5/web-forms.rnc">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="2.2619047" vertical-offset="10640" max-vertical-offset="12810">
@@ -774,27 +762,43 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/main.html">
+    <entry file="file://$PROJECT_DIR$/bower_components/ng-table-extend/ng-table.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.866667" vertical-offset="541" max-vertical-offset="2163">
-          <caret line="47" column="30" selection-start-line="47" selection-start-column="30" selection-end-line="47" selection-end-column="30" />
+        <state vertical-scroll-proportion="0.6822917" vertical-offset="825" max-vertical-offset="15897">
+          <caret line="58" column="17" selection-start-line="58" selection-start-column="17" selection-end-line="58" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1869">
-          <caret line="18" column="7" selection-start-line="15" selection-start-column="4" selection-end-line="18" selection-end-column="7" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="426" max-vertical-offset="1848">
+          <caret line="25" column="28" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bower_components/ng-table-extend/ng-table.js">
+    <entry file="file://$PROJECT_DIR$/app/views/main.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.68" vertical-offset="13857" max-vertical-offset="15939">
-          <caret line="669" column="35" selection-start-line="669" selection-start-column="30" selection-end-line="669" selection-end-column="35" />
-          <folding />
+        <state vertical-scroll-proportion="-4.9636364" vertical-offset="1155" max-vertical-offset="2247">
+          <caret line="68" column="93" selection-start-line="68" selection-start-column="80" selection-end-line="68" selection-end-column="93" />
+          <folding>
+            <element signature="n#style#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#2;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/controllers/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.32" vertical-offset="2204" max-vertical-offset="3192">
+          <caret line="153" column="67" selection-start-line="153" selection-start-column="67" selection-end-line="153" selection-end-column="67" />
+          <folding>
+            <element signature="e#3115#3230#0" expanded="false" />
+            <element signature="e#3315#3363#0" expanded="false" />
+            <element signature="e#3530#3809#0" expanded="false" />
+            <element signature="e#4201#4335#0" expanded="false" />
+            <element signature="e#4912#5347#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -808,10 +812,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/controllers/jobCreate.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="646" max-vertical-offset="1260">
+          <caret line="44" column="90" selection-start-line="44" selection-start-column="90" selection-end-line="44" selection-end-column="90" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/controllers/jobDetail.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.40625" vertical-offset="2076" max-vertical-offset="3612">
-          <caret line="132" column="62" selection-start-line="132" selection-start-column="62" selection-end-line="132" selection-end-column="62" />
+        <state vertical-scroll-proportion="0.9895833" vertical-offset="1887" max-vertical-offset="3612">
+          <caret line="139" column="17" selection-start-line="139" selection-start-column="17" selection-end-line="139" selection-end-column="17" />
           <folding>
             <element signature="e#20056#20320#0" expanded="false" />
             <element signature="e#20369#20651#0" expanded="false" />
