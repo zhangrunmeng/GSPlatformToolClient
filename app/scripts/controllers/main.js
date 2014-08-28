@@ -181,6 +181,9 @@ angular.module('gsPlatformToolApp')
     };
     jobHubProxy.on('appendReport',function(jobName,report){
        var updateJob=  $filter('filter')($scope.jobs,{JobName:jobName})[0];
+        if(angular.isUndefined(updateJob.Report)){
+            updateJob.Report={JobName:updateJob.JobName,Report:""};
+        }
        updateJob.Report.Report+=report;
        if($scope.selectedJob.JobName==jobName){
            $scope.$broadcast('scrollReport');
