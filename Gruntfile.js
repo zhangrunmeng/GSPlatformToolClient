@@ -167,6 +167,7 @@ module.exports = function (grunt) {
       },
       app: {
         src: ['<%= yeoman.app %>/index.html'],
+        exclude: ['bower_components/bootstrap/dist/js/bootstrap.js','bower_components/pace/pace.js'],
         ignorePath:  /\.\.\//
       }
     },
@@ -324,7 +325,13 @@ module.exports = function (grunt) {
           cwd: 'bower_components/bootstrap/dist',
           src: 'fonts/*',
           dest: '<%= yeoman.dist %>'
-        }]
+        },{
+            expand: true,
+            cwd: 'bower_components/font-awesome',
+            src: 'fonts/*',
+            dest: '<%= yeoman.dist %>'
+        }
+        ]
       },
       styles: {
         expand: true,

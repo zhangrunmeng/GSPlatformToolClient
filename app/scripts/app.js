@@ -10,8 +10,11 @@
  */
 angular
   .module('gsPlatformToolApp', [
-    'restangular','ngTable'
-  ]).constant('serviceUrl','http://vhwebdevserver.eng.citrite.net')
+    'restangular','ngTable','ui.bootstrap','ngMessages'
+  ])  // actual service url
+    .constant('serviceUrl','http://vhwebdevserver.eng.citrite.net')
+    // local debug service url
+    .constant('serviceUrl2','http://localhost:61586/')
     .config(function(RestangularProvider,serviceUrl){
         RestangularProvider.setBaseUrl(serviceUrl+'/api/');
     });
@@ -20,6 +23,7 @@ angular
 angular.module('gsPlatformToolApp')
     .factory('Utility',function(){
         // job status
+        var all='All';
         var running="Running";
         var created="Created";
         var completed="Completed";
@@ -44,25 +48,39 @@ angular.module('gsPlatformToolApp')
             openedSign : '[-]'
         };
 
-        // page group
-        var pageGroup='#page-group';
-        var dtJob='#dt_job';
-        var dtJobInfo ='#dt_job_info';
-        var dtJobPaginate ='#dt_job_paginate';
+        // tab name
+        var settingTab='settingTab';
+        var configureTab ='configureTab';
+        var historyTab ='historyTab';
+        var reportTab ='reportTab';
 
+        // scm Type
+        var gitScmType ='StringDetectorService.ReqResModel.GitSettingDto, StringDetectorService';
+        var svnScmType ='StringDetectorService.ReqResModel.SVNSettingDto, StringDetectorService';
+        var perforceScmType ='StringDetectorService.ReqResModel.PerforceSettingDto, StringDetectorService';
 
+        var modeEnum={extraSmall:0,small:1,medium:2,large:3}
         return {
 
             BuildStatusMap : buildStatusMap,
             ValidationJob  : validationJobName,
             ToolName : toolName,
             MenuOption : menuOption,
-            pageGroup: pageGroup,
-            dtJob : dtJob,
-            dtJobInfo : dtJobInfo,
-            dtJobPaginate : dtJobPaginate,
+            ModeEnum: modeEnum,
             created: created,
             running:running,
-            completed:completed
+            completed:completed,
+            all:all,
+            defaultCategory: all,
+            settingTab : settingTab,
+            historyTab : historyTab,
+            configureTab: configureTab,
+            reportTab: reportTab,
+            gitScmType:gitScmType,
+            svnScmType:svnScmType,
+            perforceScmType:perforceScmType,
+            connectionId:''
+
+
         };
     });

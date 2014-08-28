@@ -9,7 +9,31 @@
  * - BODY
  * - CUSTOM STYLES
  */
-/**-------------------------------------------CUSTOM STYLE-------------------------------------------**/
+
+/**-------------------------------------------CUSTOM STYLE For this page-------------------------------------------**/
+.dataTables_wrapper.form-inline .checkbox input[type="checkbox"].checkbox ,
+.dataTables_wrapper.form-inline .radiobox input[type="radio"].radiobox  {
+    position: absolute;
+}
+/**-------------------------------------------CUSTOM STYLE For Angular Validate-------------------------------------------**/
+.ng-dirty.ng-invalid.form-control{
+    border-color: #b94a48 !important;
+}
+.ng-dirty.ng-valid.form-control{
+    border-color: #468847 !important;
+}
+.ng-active{
+    color: red;
+}
+/**-------------------------------------------CUSTOM STYLE For NoTable-------------------------------------------**/
+.ng-table th.sortable.sort-desc,
+.ng-table th.sortable.sort-asc{
+    background-color: inherit;
+}
+.ng-table th {
+    text-align: left;
+}
+/**-------------------------------------------CUSTOM STYLE For SmartAdmin-------------------------------------------**/
 
 .table-noborder tr td {
     border-top-style: dashed!important;
@@ -86,14 +110,17 @@
     margin: 0  1% ;
 }
 
-.custom-form .custom-control-1 input[type='text']{
+.custom-form .custom-control-1 input[type='text'],
+.custom-form .custom-control-1 input[type='url']
+{
     color:#808080;
     font-size: 15px;
     padding: 1px 6px;
     cursor: default !important;
 }
 
-.custom-form-edit .custom-control-1 input[type='text']{
+.custom-form-edit .custom-control-1 input[type='text'],
+.custom-form-edit .custom-control-1 input[type='url']{
     color:#232323;
     font-size: 15px;
     padding: 1px 6px;
@@ -114,7 +141,7 @@
 .custom-form-edit .custom-control-1 textarea {
     color:#232323;
     font-size: 15px;
-    height: 165px;
+    height: 145px;
     resize: none;
     padding: 1px 6px;
 }
