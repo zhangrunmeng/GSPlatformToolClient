@@ -295,8 +295,6 @@
                     <span > {{job.JobName+'#'+selectedBuild.Number}}</span>
                         <span class="widget-icon"  > <a
                                 href="{{selectedBuildUrl}}" title="download"><i class="fa fa-download"></i></a> </span>
-                        <span class="widget-icon " > <a
-                                href="javascript:void(0)" title="popout"> <i class="fa fa-external-link"></i> </a></span>
                 </header>
 
                 <fieldset >
@@ -338,16 +336,13 @@
                         <span class="widget-icon" > <a href="{{lastBuildUrl}}" download="report.txt"
                                                                                           title="download"><i
                                 class="fa fa-download"></i></a> </span>
-                        <span class="widget-icon " id="popout-project-report-icon--"> <a href="javascript:void(0)"
-                                                                                         title="popout"> <i
-                                class="fa fa-external-link"></i> </a></span>
                     </header>
 
                     <fieldset>
                         <div class="row" >
                             <section>
                                 <div class="custom-control-2 ">
-                                    <textarea class="form-control no-border" spellcheck="false"
+                                    <textarea data-build='lastBuild' class="form-control no-border" spellcheck="false"
                                               readonly>{{job.Report.Report?job.Report.Report:'No available data'}}</textarea>
                                 </div>
 

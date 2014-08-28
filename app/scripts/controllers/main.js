@@ -8,8 +8,8 @@
  * Controller of the stringDetectorWebClientAngularApp
  */
 angular.module('gsPlatformToolApp')
-  .controller('MainCtrl', function ($scope,$rootScope,$filter,Restangular,ngTableParams,signalRHubProxy,serviceUrl,serviceUrl2,Utility) {
-    var jobHubProxy = signalRHubProxy(serviceUrl2,'jobHub',{logging:true});
+  .controller('MainCtrl', function ($scope,$rootScope,$filter,Restangular,ngTableParams,signalRHubProxy,serviceUrl,Utility) {
+    var jobHubProxy = signalRHubProxy(serviceUrl,'jobHub',{logging:true});
 
     // all kinds of category jobs count
     $scope.selectedCategory= Utility.defaultCategory;
@@ -30,7 +30,11 @@ angular.module('gsPlatformToolApp')
                         return job.JobName!= Utility.ValidationJob;
                     });
                     $scope.selectedJob= $scope.jobs[0];
-                    // data=[{JobName:'1',Result:'3'},{JobName:'2',Result:'1'},{JobName:'3',Result:'4'},{JobName:'1',Result:'2'}]
+                    angular.forEach($scope.jobs,function(job){
+                       if(job.Result==Utility.running){
+                           $scope.invokeFetchJobReport(job.JobName);
+                       };
+                    });
                 },function(err){
                     console.log(err);
                 }).then(function(){
@@ -106,15 +110,6 @@ angular.module('gsPlatformToolApp')
     });
 
 
-    /*$scope.$watch('jobs',function(newValue,oldValue){
-      if(angular.isUndefined(oldValue)||angular.isUndefined(newValue)){
-          return;
-      };
-      if(newValue.length!=oldValue.length){
-          $scope.jobTableParams.reload();
-      }
-    });*/
-
     // create job call back
     $rootScope.$on('createNewJob',function(event,data){
         $scope.jobs.push(data);
@@ -141,7 +136,7 @@ angular.module('gsPlatformToolApp')
     // top job tool bar
     $scope.jobStart = function(jobs){
         angular.forEach(jobs,function(job){
-            Restangular.one('jobs',job.JobName).post('start',null,{fields:'status'})
+            Restangular.one('jobs',job.JobName).post('start',null,{fields:'status',realtime:true,connectionId:Utility.connectionId})
                 .then(function(jobData){
 
                         job.Status=jobData.Status;
@@ -152,27 +147,26 @@ angular.module('gsPlatformToolApp')
                             job.Report.Report="";
                         }
                         $scope.invokeFetchJobReport(job.JobName);
-                        if(job==$scope.selectedJob){
-                            $scope.$broadcast('beginJobStart');
-                        }
+                        $scope.selectedJob =job;
+                        $scope.$broadcast('beginJobStart');
                 });
         });
     };
 
     $scope.jobStop = function(jobs){
         angular.forEach(jobs,function(job){
-            Restangular.one('jobs',job.JobName).one('stop').remove({fields:'status'})
+            Restangular.one('jobs',job.JobName).one('stop').remove({fields:'status',realtime:true,connectionId:Utility.connectionId})
                 .then(function(jobData){
                     job.Status=jobData.Status;
                     job.Result=Utility.BuildStatusMap[job.Status.Status];
-                    $scope.jobTableParams.reload();
+                   // $scope.jobTableParams.reload();
                 });
         });
     };
 
     $scope.jobDelete = function(jobs) {
        angular.forEach(jobs,function(job){
-           Restangular.one('jobs',job.JobName).remove()
+           Restangular.one('jobs',job.JobName).remove({realtime:true,connectionId:Utility.connectionId})
                .then(function(jobName){
                  var removeIndex= $scope.jobs.indexOf(job);
                  $scope.jobs.splice(removeIndex,1);
@@ -207,8 +201,36 @@ angular.module('gsPlatformToolApp')
                 $scope.$broadcast('afterJobStop');
             });
     });
+
+    jobHubProxy.on('startJobCallBack',function(jobData){
+        var job =$filter('filter')($scope.jobs,{JobName:jobData.JobName})[0];
+        job.Status=jobData.Status;
+        job.Result=Utility.BuildStatusMap[job.Status.Status];
+        if(angular.isUndefined(job.Report)){
+            job.Report={JobName:job.JobName,Report:""};
+        }else{
+            job.Report.Report="";
+        }
+        $scope.invokeFetchJobReport(job.JobName);
+        if(job==$scope.selectedJob){
+            $scope.$broadcast('beginJobStart');
+        }
+    });
+    jobHubProxy.on('stopJobCallBack',function(jobData){
+        var job =$filter('filter')($scope.jobs,{JobName:jobData.JobName})[0];
+        job.Status=jobData.Status;
+        job.Result=Utility.BuildStatusMap[job.Status.Status];
+    });
+    jobHubProxy.on('addJobCallBack',function(jobData){
+        jobData.Result=Utility.BuildStatusMap[jobData.Status.Status];
+        $scope.jobs.push(jobData);
+        $scope.jobTableParams.reload();
+    });
+    jobHubProxy.on('deleteJobCallBack',function(jobName){
+        var job =$filter('filter')($scope.jobs,{JobName:jobName})[0];
+        var removeIndex= $scope.jobs.indexOf(job);
+        $scope.jobs.splice(removeIndex,1);
+        $scope.jobTableParams.reload();
+    });
+
 });
-
-
-
-

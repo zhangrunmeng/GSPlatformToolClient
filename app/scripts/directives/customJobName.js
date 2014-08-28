@@ -21,7 +21,7 @@ angular.module('gsPlatformToolApp')
             console.log("customjobname:"+newValue);
             Restangular.one("validation","custom").post('jobname',{"Input":newValue})
                 .then(function(result){
-                    ngModelController.$setValidity('customJobName',  true);
+                    ngModelController.$setValidity('customJobName',   ( result['Type'] == 'ok' ) ? true : false);
                 }
                 ,function(error){
                     ngModelController.$setValidity('customJobName',  false);

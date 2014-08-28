@@ -119,7 +119,7 @@ angular.module('gsPlatformToolApp')
         });
 
         $scope.$on('scrollReport',function(event,appendReport){
-           console.log('scroll animation');
+           $scope.scrollReport();
         });
 
         // ng-table params for history builds

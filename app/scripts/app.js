@@ -11,10 +11,12 @@
 angular
   .module('gsPlatformToolApp', [
     'restangular','ngTable','ui.bootstrap','ngMessages'
-  ]).constant('serviceUrl','http://vhwebdevserver.eng.citrite.net')
+  ])  // actual service url
+    .constant('serviceUrl','http://vhwebdevserver.eng.citrite.net')
+    // local debug service url
     .constant('serviceUrl2','http://localhost:61586/')
-    .config(function(RestangularProvider,serviceUrl,serviceUrl2){
-        RestangularProvider.setBaseUrl(serviceUrl2+'/api/');
+    .config(function(RestangularProvider,serviceUrl){
+        RestangularProvider.setBaseUrl(serviceUrl+'/api/');
     });
 
 
@@ -76,7 +78,8 @@ angular.module('gsPlatformToolApp')
             reportTab: reportTab,
             gitScmType:gitScmType,
             svnScmType:svnScmType,
-            perforceScmType:perforceScmType
+            perforceScmType:perforceScmType,
+            connectionId:''
 
 
         };

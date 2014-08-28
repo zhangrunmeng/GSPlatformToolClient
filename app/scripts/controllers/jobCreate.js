@@ -40,7 +40,7 @@ var ModalInstanceCtrl = function ($scope,Restangular,Utility, $modalInstance,src
             return;
         }
 
-        Restangular.one('jobs').post($scope.job.JobName,$scope.job,{fields:'jobName,status'})
+        Restangular.one('jobs').post($scope.job.JobName,$scope.job,{fields:'jobName,status',realtime:true,connectionId:Utility.connectionId})
             .then(function(data){
                 var newJob = {JobName:data.JobName,Status:data.Status,Result:Utility.BuildStatusMap[data.Status.Status]};
                 $modalInstance.dismiss('cancel');
