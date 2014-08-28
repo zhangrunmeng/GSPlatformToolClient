@@ -149,6 +149,7 @@ angular.module('gsPlatformToolApp')
                         $scope.invokeFetchJobReport(job.JobName);
                         $scope.selectedJob =job;
                         $scope.$broadcast('beginJobStart');
+                        $scope.jobTableParams.reload();
                 });
         });
     };
@@ -159,7 +160,7 @@ angular.module('gsPlatformToolApp')
                 .then(function(jobData){
                     job.Status=jobData.Status;
                     job.Result=Utility.BuildStatusMap[job.Status.Status];
-                   // $scope.jobTableParams.reload();
+                    $scope.jobTableParams.reload();
                 });
         });
     };
@@ -202,6 +203,7 @@ angular.module('gsPlatformToolApp')
                 }
                 updateJob.Report=jobData.Report;
                 $scope.$broadcast('afterJobStop');
+                $scope.jobTableParams.reload();
             });
     });
 
@@ -218,11 +220,13 @@ angular.module('gsPlatformToolApp')
         if(job==$scope.selectedJob){
             $scope.$broadcast('beginJobStart');
         }
+        $scope.jobTableParams.reload();
     });
     jobHubProxy.on('stopJobCallBack',function(jobData){
         var job =$filter('filter')($scope.jobs,{JobName:jobData.JobName})[0];
         job.Status=jobData.Status;
         job.Result=Utility.BuildStatusMap[job.Status.Status];
+        $scope.jobTableParams.reload();
     });
     jobHubProxy.on('addJobCallBack',function(jobData){
         jobData.Result=Utility.BuildStatusMap[jobData.Status.Status];
